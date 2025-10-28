@@ -8,9 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0b1220;--muted:#8aa0bf;--txt:#e9eefc;--card:#121a2b;--brand:#43b0ff;--ok:#21c55d;--warn:#f59e0b;--err:#ef4444;--ring:0 0 0 3px rgba(67,176,255,.2);--radius:18px;--shadow:0 12px 36px rgba(17,25,40,.28)
-    }
+    :root{ --bg:#0b1220;--muted:#8aa0bf;--txt:#e9eefc;--card:#121a2b;--brand:#43b0ff;--ok:#21c55d;--warn:#f59e0b;--err:#ef4444;--ring:0 0 0 3px rgba(67,176,255,.2);--radius:18px;--shadow:0 12px 36px rgba(17,25,40,.28) }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{margin:0;background:linear-gradient(180deg,#0b1220 0%,#0d1526 60%,#0b1220 100%);color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
@@ -30,9 +28,7 @@
     @media(min-width:860px){.grid.cols-2{grid-template-columns:1fr 1fr}.grid.cols-3{grid-template-columns:repeat(3,1fr)}}
     label{font-weight:600;font-size:13px;margin-bottom:6px;display:block}
     .row{display:grid;gap:6px}
-    input[type="text"],input[type="email"],select,textarea{
-      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0e1629;color:var(--txt);outline:none
-    }
+    input[type="text"],input[type="email"],select,textarea{ width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0e1629;color:var(--txt);outline:none }
     textarea{min-height:120px;resize:vertical}
     input:focus,select:focus,textarea:focus{box-shadow:var(--ring);border-color:#2f80ff}
     .help{font-size:12px;color:var(--muted)}
@@ -79,7 +75,7 @@
     <section class="hero card">
       <div>
         <h2>Envie uma avaliação sobre a loja ou um elogio/reclamação de um funcionário</h2>
-        <p class="muted">Você pode se identificar ou enviar de forma anônima.O feedback será encaminhado por e‑mail automaticamente para a equipe responsável.</p>
+        <p class="muted">Você pode se identificar ou enviar de forma anônima. O feedback será encaminhado por e‑mail automaticamente para a equipe responsável.</p>
         <div class="badges" aria-label="opções rápidas">
           <span class="badge">Anonimato opcional</span>
           <span class="badge">Rápido de preencher</span>
@@ -240,27 +236,11 @@
 <script>
   // ====== Dados de referência ======
   const FUNCIONARIOS = {
-    // Edite livremente estes nomes por filial/cargo
-    '293': { // ARTUR
-      vendedor: ['Tainara', 'Polyana'],
-      gerente: ['Lucinele']
-    },
-    '488': { // FLORIANO
-      vendedor: ['Sara', 'Iolanda', 'Gabriela'],
-      gerente: ['Meire']
-    },
-    '287': { // JOTA
-      vendedor: ['Vera', 'Karina', 'Rayssa'],
-      gerente: ['Bruno']
-    },
-    '288': { // MODA
-      vendedor: ['Maria', 'Marcia', 'Joana'],
-      gerente: ['Dayane']
-    },
-    '761': { // PONTO
-      vendedor: ['Dani', 'Isadora', 'Paula'],
-      gerente: ['Sônia']
-    }
+    '293': { vendedor: ['Tainara', 'Polyana'], gerente: ['Lucinele'] },
+    '488': { vendedor: ['Sara', 'Iolanda', 'Gabriela'], gerente: ['Meire'] },
+    '287': { vendedor: ['Vera', 'Karina', 'Rayssa'], gerente: ['Bruno'] },
+    '288': { vendedor: ['Maria', 'Marcia', 'Joana'], gerente: ['Dayane'] },
+    '761': { vendedor: ['Dani', 'Isadora', 'Paula'], gerente: ['Sônia'] }
   };
 
   // ====== Utilidades ======
@@ -274,26 +254,16 @@
   byId('protocolBox').textContent = protocol();
   byId('year').textContent = new Date().getFullYear();
 
-  // Acessibilidade do switch anônimo
+  // Switch anônimo
   const sw = byId('anonSwitch');
   const setAnon = (on) => {
-    if(on){
-      sw.classList.add('on');
-      sw.setAttribute('aria-checked', 'true');
-      byId('anonimo').value = 'sim';
-      byId('blocoPessoal').classList.add('hidden');
-      byId('consent').checked = false;
-    } else {
-      sw.classList.remove('on');
-      sw.setAttribute('aria-checked', 'false');
-      byId('anonimo').value = 'nao';
-      byId('blocoPessoal').classList.remove('hidden');
-    }
+    if(on){ sw.classList.add('on'); sw.setAttribute('aria-checked','true'); byId('anonimo').value='sim'; byId('blocoPessoal').classList.add('hidden'); byId('consent').checked=false; }
+    else { sw.classList.remove('on'); sw.setAttribute('aria-checked','false'); byId('anonimo').value='nao'; byId('blocoPessoal').classList.remove('hidden'); }
   };
   sw.addEventListener('click', ()=> setAnon(!sw.classList.contains('on')));
   sw.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); sw.click(); }});
 
-  // Alternância de blocos (Loja x Funcionário)
+  // Alternância de blocos
   const toggleEscopo = () => {
     const t = byId('tipoEscopo').value;
     byId('blocoLoja').classList.toggle('hidden', t !== 'loja');
@@ -301,7 +271,7 @@
   };
   byId('tipoEscopo').addEventListener('change', toggleEscopo);
 
-  // Carregar funcionários conforme filial/cargo
+  // Carregar funcionários
   const carregarFuncionarios = () => {
     const filial = byId('filial').value;
     const cargo = byId('cargo').value;
@@ -315,7 +285,7 @@
   byId('filial').addEventListener('change', ()=>{carregarFuncionarios();toggleEscopo();});
   byId('cargo').addEventListener('change', carregarFuncionarios);
 
-  // Estrelas de avaliação
+  // Estrelas
   const paintStars = (n) => {
     $$('.star').forEach((el,i)=>{
       const on = i < n;
@@ -325,10 +295,9 @@
   };
   $$('.star').forEach(el=> el.addEventListener('click', ()=>{ const v = +el.dataset.v; byId('nota').value = v; paintStars(v);}));
 
-  // Limpar formulário
+  // Limpar
   byId('btnLimpar').addEventListener('click', ()=>{
-    byId('formFeedback').reset();
-    setAnon(false); paintStars(0); byId('protocolBox').textContent = protocol();
+    byId('formFeedback').reset(); setAnon(false); paintStars(0); byId('protocolBox').textContent = protocol();
     byId('boxMsg').className = 'notice hidden'; byId('boxMsg').textContent = '';
     byId('blocoLoja').classList.add('hidden'); byId('blocoFunc').classList.add('hidden');
     byId('funcionario').innerHTML = '<option disabled selected>Escolha a filial primeiro</option>';
@@ -337,19 +306,15 @@
   // Imprimir/Salvar PDF
   byId('printLink').addEventListener('click', (e)=>{e.preventDefault(); window.print();});
 
-  // Validação mínima
+  // Validação
   function validar(){
-    const filial = byId('filial').value;
-    const escopo = byId('tipoEscopo').value;
+    const filial = byId('filial').value; const escopo = byId('tipoEscopo').value;
     if(!filial || !escopo) return 'Selecione a filial e o tipo (Loja/Funcionário).';
     if(!isAnon() && !byId('consent').checked) return 'Marque o consentimento para uso dos dados (ou ative o modo anônimo).';
     if(escopo==='loja'){
-      const msg = byId('mensagemLoja').value.trim();
-      if(!msg) return 'Descreva seu relato sobre a loja.';
+      const msg = byId('mensagemLoja').value.trim(); if(!msg) return 'Descreva seu relato sobre a loja.';
     } else {
-      const func = byId('funcionario').value;
-      const msg = byId('mensagemFunc').value.trim();
-      const tipoRelato = byId('tipoRelato').value;
+      const func = byId('funcionario').value; const msg = byId('mensagemFunc').value.trim(); const tipoRelato = byId('tipoRelato').value;
       if(!func) return 'Selecione o funcionário (ou use "Outro" e descreva no texto).';
       if(!msg) return 'Descreva seu elogio/reclamação/avaliação.';
       if(tipoRelato==='avaliacao' && +byId('nota').value === 0) return 'Informe a nota (1 a 5) para a avaliação.';
@@ -357,21 +322,16 @@
     return null;
   }
 
-  // Envio (POST) — ajuste a URL do seu Apps Script quando estiver pronta
-  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyipMWVLHxYE8hR3js46ZUmTm4zfGE2wZ8fqr_-fcHdR4v5xP_ujUZubghuu_imNcGkaQ/exec'; // TODO trocar depois
+  // ====== Envio real ======
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyipMWVLHxYE8hR3js46ZUmTm4zfGE2wZ8fqr_-fcHdR4v5xP_ujUZubghuu_imNcGkaQ/exec';
 
-  function toBase64(file){
-    return new Promise((resolve,reject)=>{
-      const r = new FileReader();
-      r.onload = ()=> resolve(String(r.result));
-      r.onerror = reject; r.readAsDataURL(file);
-    });
+  async function toBase64(file){
+    return new Promise((resolve,reject)=>{ const r = new FileReader(); r.onload = ()=> resolve(String(r.result)); r.onerror = reject; r.readAsDataURL(file); });
   }
 
   byId('formFeedback').addEventListener('submit', async (e)=>{
     e.preventDefault();
-    const err = validar();
-    const box = byId('boxMsg');
+    const err = validar(); const box = byId('boxMsg');
     if(err){ box.className='notice err'; box.textContent = '⚠️ ' + err; return; }
 
     const escopo = byId('tipoEscopo').value;
@@ -391,35 +351,25 @@
       payload.categorias = $$('input[name="cats"]:checked').map(i=>i.value);
       payload.tipoMercadoria = byId('tipoMercadoria').value || null;
       payload.mensagem = byId('mensagemLoja').value.trim();
-      const f = byId('anexosLoja').files?.[0];
-      payload.anexo = f ? await toBase64(f) : null; // base64 opcional
+      const f = byId('anexosLoja').files?.[0]; payload.anexo = f ? await toBase64(f) : null;
     } else {
-      payload.tipoRelato = byId('tipoRelato').value; // elogio | reclamacao | avaliacao
-      payload.cargo = byId('cargo').value; // vendedor | gerente
+      payload.tipoRelato = byId('tipoRelato').value;
+      payload.cargo = byId('cargo').value;
       payload.funcionario = byId('funcionario').value;
       payload.nota = +byId('nota').value || null;
       payload.mensagem = byId('mensagemFunc').value.trim();
     }
 
-    try{
-      // Mostra loading
+    try {
       box.className='notice'; box.textContent='⏳ Enviando seu feedback…';
-
-      // IMPORTANTE: quando o Apps Script estiver pronto, descomente o fetch abaixo.
-      // const res = await fetch(ENDPOINT, {method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-      // Como estamos sem backend agora, vamos simular sucesso:
-      await new Promise(r=>setTimeout(r,800));
-
-      box.className='notice ok';
-      box.innerHTML = `✅ Obrigado! Seu protocolo é <strong>${payload.protocolo}</strong>. `+
-        `Você receberá retorno se necessário.`;
+      const res = await fetch(ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json', 'Accept':'application/json' }, body: JSON.stringify(payload) });
+      let data = null; try { data = await res.json(); } catch(e) {}
+      if(!res.ok || !data || data.ok !== true){ const msg = (data && data.error) ? data.error : `Falha no envio (${res.status})`; throw new Error(msg); }
+      box.className='notice ok'; box.innerHTML = `✅ Obrigado! Seu protocolo é <strong>${payload.protocolo}</strong>. Você receberá retorno se necessário.`;
       (document.scrollingElement||document.documentElement).scrollTo({top:0,behavior:'smooth'});
-      // Opcional: limpar após sucesso
       // byId('btnLimpar').click();
-    }catch(e){
-      console.error(e);
-      box.className='notice err';
-      box.textContent='❌ Não foi possível enviar agora. Verifique sua conexão e tente novamente.';
+    } catch (e) {
+      console.error(e); box.className='notice err'; box.textContent='❌ Não foi possível enviar agora: ' + (e.message || e);
     }
   });
 </script>
