@@ -358,7 +358,7 @@
   }
 
   // Envio (POST) — ajuste a URL do seu Apps Script quando estiver pronta
-  const ENDPOINT = 'https://script.google.com/macros/s/SEU_APP_WEB_AQUI/exec'; // TODO trocar depois
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyipMWVLHxYE8hR3js46ZUmTm4zfGE2wZ8fqr_-fcHdR4v5xP_ujUZubghuu_imNcGkaQ/exec'; // TODO trocar depois
 
   function toBase64(file){
     return new Promise((resolve,reject)=>{
