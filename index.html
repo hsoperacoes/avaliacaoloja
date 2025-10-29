@@ -24,11 +24,13 @@
     .brand h1{margin:0;font-size:clamp(20px,2.4vw,28px);font-weight:700;letter-spacing:.2px}
     .sub{color:var(--muted);font-size:13px}
 
-    .card{background:linear-gradient(180deg,#121a2b 0%,#0f182b 100%);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .card{background:linear-gradient(180deg,#121a2b 0%,#0f182b 100%);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);box-shadow:var(--shadow);transition:transform 0.2s ease, box-shadow 0.2s ease}
+    .card:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(17,25,40,.35)}
     .hero{margin:24px 0;padding:22px;border-radius:var(--radius);display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
     .hero h2{margin:0 0 8px;font-size:clamp(18px,2.2vw,24px)}
     .badges{display:flex;gap:8px;flex-wrap:wrap}
-    .badge{padding:6px 10px;border-radius:999px;background:#0d1931;border:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--muted)}
+    .badge{padding:6px 10px;border-radius:999px;background:#0d1931;border:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--muted);transition:all 0.2s ease}
+    .badge:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.15)}
 
     .panel{margin:20px 0;padding:18px}
     .grid{display:grid;gap:14px}
@@ -40,50 +42,64 @@
 
     label{font-weight:600;font-size:13px;margin-bottom:6px;display:block}
     input[type="text"],input[type="email"],select,textarea{
-      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0e1629;color:var(--txt);outline:none;min-height:48px
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0e1629;color:var(--txt);outline:none;min-height:48px;transition:all 0.2s ease
     }
     select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#8aa0bf 50%),linear-gradient(135deg,#8aa0bf 50%,transparent 50%),linear-gradient(to right,#0e1629,#0e1629);
            background-position:calc(100% - 20px) calc(1.1em),calc(100% - 15px) calc(1.1em),100% 0;background-size:5px 5px,5px 5px,2.4em 2.4em;background-repeat:no-repeat}
     textarea{min-height:120px;resize:vertical}
-    input:focus,select:focus,textarea:focus{box-shadow:var(--ring);border-color:#2f80ff}
+    input:focus,select:focus,textarea:focus{box-shadow:var(--ring);border-color:#2f80ff;transform:translateY(-1px)}
 
     /* Reserva de altura para alinhar colunas com/sem help */
     .help{font-size:12px;color:var(--muted);min-height:18px}
     .muted{color:var(--muted);font-size:13px}
 
     .inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .switch{position:relative;width:56px;height:30px;background:#1a253a;border-radius:999px;border:1px solid rgba(255,255,255,.1);cursor:pointer}
-    .knob{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:all .2s}
-    .switch.on{background:#1f3a5f}
-    .switch.on .knob{left:29px;background:#dff3ff}
+    .switch{position:relative;width:56px;height:30px;background:#1a253a;border-radius:999px;border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:all 0.3s ease}
+    .knob{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:all 0.3s ease;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+    .switch.on{background:#1f3a5f;border-color:#2f80ff}
+    .switch.on .knob{left:29px;background:#dff3ff;transform:scale(1.1)}
+    .switch:hover{transform:scale(1.05)}
 
     .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:#0d1931;font-size:13px;cursor:pointer;user-select:none}
-    .chip input{appearance:none;width:16px;height:16px;border-radius:4px;border:1px solid rgba(255,255,255,.25);display:grid;place-items:center}
-    .chip input:checked{background:conic-gradient(from 210deg at 50% 50%,#2f80ff 0%,#43b0ff 100%);border-color:transparent}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:#0d1931;font-size:13px;cursor:pointer;user-select:none;transition:all 0.2s ease}
+    .chip:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.15);background:#0e1b36}
+    .chip input{appearance:none;width:16px;height:16px;border-radius:4px;border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;transition:all 0.2s ease}
+    .chip input:checked{background:conic-gradient(from 210deg at 50% 50%,#2f80ff 0%,#43b0ff 100%);border-color:transparent;transform:scale(1.1)}
 
     .rating{display:flex;gap:6px}
-    .star{width:28px;height:28px;cursor:pointer;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
+    .star{width:28px;height:28px;cursor:pointer;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));transition:all 0.2s ease}
+    .star:hover{transform:scale(1.2)}
 
-    button{appearance:none;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,#1c2b49 0%,#18243d 100%);color:var(--txt);font-weight:700;cursor:pointer}
+    button{appearance:none;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,#1c2b49 0%,#18243d 100%);color:var(--txt);font-weight:700;cursor:pointer;transition:all 0.3s ease;position:relative;overflow:hidden}
+    button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left 0.5s}
+    button:hover::before{left:100%}
+    button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+    button:active{transform:translateY(0)}
     .btn-primary{background:linear-gradient(180deg,#46b7ff 0%,#2f80ff 100%);border:none;color:#0b1220}
+    .btn-primary:hover{background:linear-gradient(180deg,#5bc0ff 0%,#3a8aff 100%)}
     .btn-ghost{background:#0f192e}
+    .btn-ghost:hover{background:#131f3a;border-color:rgba(255,255,255,.2)}
 
-    .notice{padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f192e;display:flex;gap:10px;align-items:flex-start}
+    .notice{padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f192e;display:flex;gap:10px;align-items:flex-start;transition:all 0.2s ease}
+    .notice:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.18)}
     .hidden{display:none!important}
 
     /* Aviso forte (identificação) */
-    .callout{padding:12px 14px;border-radius:12px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.55);color:#ffd28a;font-weight:700}
+    .callout{padding:12px 14px;border-radius:12px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.55);color:#ffd28a;font-weight:700;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.8}}
 
     footer{margin:28px 0 40px;color:var(--muted);font-size:12px;text-align:center}
 
     /* Overlay (bloqueio durante envio e sucesso) */
-    .overlay{position:fixed;inset:0;background:rgba(7,12,22,.72);backdrop-filter:blur(3px);display:none;place-items:center;z-index:80}
+    .overlay{position:fixed;inset:0;background:rgba(7,12,22,.72);backdrop-filter:blur(3px);display:none;place-items:center;z-index:80;animation:fadeIn 0.3s ease}
+    @keyframes fadeIn{from{opacity:0} to{opacity:1}}
     .overlay.show{display:grid}
-    .card-overlay{background:#0f182b;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px 22px 16px;min-width:min(92vw,520px);text-align:center;box-shadow:var(--shadow)}
+    .card-overlay{background:#0f182b;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px 22px 16px;min-width:min(92vw,520px);text-align:center;box-shadow:var(--shadow);animation:slideUp 0.4s ease}
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)}}
     .spinner{width:58px;height:58px;border-radius:50%;border:6px solid rgba(255,255,255,.18);border-top-color:#43b0ff;animation:spin 1s linear infinite;margin:0 auto}
     @keyframes spin{to{transform:rotate(360deg)}}
-    .proto-big{margin-top:8px;font-family:ui-monospace,monospace;background:#0d1931;border:1px solid rgba(255,255,255,.16);padding:8px 10px;border-radius:10px;display:inline-block}
+    .proto-big{margin-top:8px;font-family:ui-monospace,monospace;background:#0d1931;border:1px solid rgba(255,255,255,.16);padding:8px 10px;border-radius:10px;display:inline-block;animation:bounceIn 0.6s ease}
+    @keyframes bounceIn{0%{transform:scale(0.3);opacity:0}50%{transform:scale(1.05)}70%{transform:scale(0.9)}100%{transform:scale(1);opacity:1}}
     
     /* CORREÇÃO: Ajuste específico para o bloco de funcionário */
     .bloco-func-ajustado {
@@ -101,16 +117,22 @@
     .success-icon {
       font-size: 48px;
       margin-bottom: 12px;
+      animation: bounceIn 0.6s ease;
     }
     .success-message {
       margin: 8px 0 16px;
       color: var(--muted);
+      animation:fadeIn 0.5s ease 0.2s both;
     }
+
+    /* Animações para elementos que aparecem */
+    .fade-in{animation:fadeIn 0.5s ease}
+    .slide-in{animation:slideUp 0.4s ease}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
+    <header class="fade-in">
       <div class="brand">
         <div class="logo" aria-hidden="true">👕</div>
         <div>
@@ -123,7 +145,7 @@
       </div>
     </header>
 
-    <section class="hero card">
+    <section class="hero card slide-in">
       <div>
         <h2>Envie uma avaliação sobre a loja ou um elogio/reclamação de um funcionário</h2>
         <p class="muted">Você pode se identificar ou enviar de forma anônima. O feedback será encaminhado por e-mail automaticamente para a equipe responsável.</p>
@@ -139,7 +161,7 @@
       </div>
     </section>
 
-    <form id="formFeedback" class="card panel" novalidate>
+    <form id="formFeedback" class="card panel fade-in" novalidate>
       <!-- Filial + Tipo (alinhados) -->
       <div class="grid cols-2">
         <div class="row">
@@ -161,7 +183,6 @@
             <option value="loja">Avaliação da Loja</option>
             <option value="funcionario">Elogio/Reclamação de Funcionário</option>
           </select>
-          <!-- help vazio só para nivelar a altura com a coluna da esquerda -->
           <div class="help"></div>
         </div>
       </div>
@@ -244,7 +265,7 @@
               <select id="funcionario" name="funcionario">
                 <option value="" disabled selected>Escolha a filial primeiro</option>
               </select>
-              <div class="help">A lista carrega pela filial. Há "Outro" no final.</div>
+              <div class="help"></div>
             </div>
           </div>
 
@@ -316,8 +337,22 @@
   const protocol = () => 'HS-' + new Date().toISOString().replace(/[-:T.Z]/g,'').slice(0,14);
   const isAnon = () => byId('anonimo').value === 'sim';
 
-  // Estado inicial
-  byId('protocolBox').textContent = protocol();
+  // Estado inicial - AGORA COM RESET COMPLETO
+  function inicializarFormulario() {
+    byId('formFeedback').reset();
+    setAnon(false); 
+    paintStars(0); 
+    byId('protocolBox').textContent = protocol();
+    byId('blocoLoja').classList.add('hidden'); 
+    byId('blocoFunc').classList.add('hidden');
+    byId('funcionario').innerHTML = '<option value="" disabled selected>Escolha a filial primeiro</option>';
+    byId('filial').value = '';
+    byId('tipoEscopo').value = '';
+    byId('consent').checked = false;
+  }
+
+  // Inicializar ao carregar a página
+  inicializarFormulario();
   byId('year').textContent = new Date().getFullYear();
 
   // Switch anônimo + aviso forte
@@ -347,18 +382,23 @@
   };
   byId('tipoEscopo').addEventListener('change', toggleEscopo);
 
-  // Carregar funcionários por filial/cargo
+  // Carregar funcionários por filial/cargo - REMOVIDO "OUTRO"
   const carregarFuncionarios = () => {
     const filial = byId('filial').value;
     const cargo  = byId('cargo').value;
     const sel = byId('funcionario');
     sel.innerHTML = '';
-    if(!filial){ sel.innerHTML = '<option disabled selected>Escolha a filial primeiro</option>'; return; }
+    if(!filial){ 
+      sel.innerHTML = '<option value="" disabled selected>Escolha a filial primeiro</option>'; 
+      return; 
+    }
     const lista = (FUNCIONARIOS[filial] && FUNCIONARIOS[filial][cargo]) || [];
-    if(lista.length === 0){ sel.innerHTML = '<option disabled selected>Sem cadastro</option>'; return; }
-    sel.innerHTML = '<option disabled selected>Selecione…</option>' +
-      lista.map(n => `<option value="${n}">${n}</option>`).join('') +
-      '<option value="Outro">Outro (digitar no campo de detalhes)</option>';
+    if(lista.length === 0){ 
+      sel.innerHTML = '<option value="" disabled selected>Nenhum funcionário encontrado</option>'; 
+      return; 
+    }
+    sel.innerHTML = '<option value="" disabled selected>Selecione…</option>' +
+      lista.map(n => `<option value="${n}">${n}</option>`).join('');
   };
   byId('filial').addEventListener('change', ()=>{carregarFuncionarios();toggleEscopo();});
   byId('cargo').addEventListener('change', carregarFuncionarios);
@@ -373,13 +413,8 @@
   };
   $$('.star').forEach(el=> el.addEventListener('click', ()=>{ const v = +el.dataset.v; byId('nota').value = v; paintStars(v);}));
 
-  // Limpar
-  byId('btnLimpar').addEventListener('click', ()=>{
-    byId('formFeedback').reset();
-    setAnon(false); paintStars(0); byId('protocolBox').textContent = protocol();
-    byId('blocoLoja').classList.add('hidden'); byId('blocoFunc').classList.add('hidden');
-    byId('funcionario').innerHTML = '<option disabled selected>Escolha a filial primeiro</option>';
-  });
+  // Limpar - AGORA USA A FUNÇÃO DE INICIALIZAÇÃO
+  byId('btnLimpar').addEventListener('click', inicializarFormulario);
 
   // Validação
   function validar(){
@@ -399,7 +434,7 @@
       const func = byId('funcionario').value;
       const msg  = byId('mensagemFunc').value.trim();
       const tipoRelato = byId('tipoRelato').value;
-      if(!func) return 'Selecione o funcionário (ou use "Outro" e descreva no texto).';
+      if(!func) return 'Selecione o funcionário.';
       if(!msg)  return 'Descreva seu elogio/reclamação/avaliação.';
       if(tipoRelato==='avaliacao' && +byId('nota').value === 0) return 'Informe a nota (1 a 5) para a avaliação.';
     }
@@ -444,7 +479,11 @@
       b.classList.remove('hidden');
       b.focus();
     },
-    off(){ $('#overlay').classList.remove('show'); }
+    off(){ 
+      $('#overlay').classList.remove('show');
+      // RESET COMPLETO DO FORMULÁRIO APÓS FECHAR O OVERLAY
+      setTimeout(inicializarFormulario, 300);
+    }
   };
   $('#ovBtn').addEventListener('click', ()=>{ Overlay.off(); });
 
@@ -496,10 +535,6 @@
       await fetch(ENDPOINT, { method:'POST', mode:'no-cors', body: JSON.stringify(payload) });
       // sucesso
       Overlay.onSuccess(proto);
-      // opcional: limpar
-      byId('btnLimpar').click();
-      // novo protocolo p/ próxima sessão
-      byId('protocolBox').textContent = protocol();
     }catch(e){
       $('#ovTitle').textContent = '❌ Não foi possível enviar agora. Tente novamente.';
       $('#ovSpin').classList.add('hidden');
