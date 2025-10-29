@@ -85,10 +85,16 @@
     @keyframes spin{to{transform:rotate(360deg)}}
     .proto-big{margin-top:8px;font-family:ui-monospace,monospace;background:#0d1931;border:1px solid rgba(255,255,255,.16);padding:8px 10px;border-radius:10px;display:inline-block}
     
-    /* Ajuste para alinhar corretamente o bloco de funcionário */
-    .bloco-func-container {
+    /* CORREÇÃO: Ajuste específico para o bloco de funcionário */
+    .bloco-func-ajustado {
       display: grid;
       gap: 14px;
+    }
+    .bloco-func-ajustado .grid.cols-3 {
+      align-items: start;
+    }
+    .bloco-func-ajustado .row {
+      align-content: start;
     }
     
     /* Melhorias na tela de sucesso */
@@ -214,9 +220,9 @@
         </div>
       </div>
 
-      <!-- Funcionário - CORRIGIDO -->
+      <!-- Funcionário - CORREÇÃO APLICADA -->
       <div id="blocoFunc" class="panel card hidden">
-        <div class="bloco-func-container">
+        <div class="bloco-func-ajustado">
           <div class="grid cols-3">
             <div class="row">
               <label for="tipoRelato">O que deseja registrar?</label>
