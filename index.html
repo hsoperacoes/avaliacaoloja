@@ -84,6 +84,22 @@
     .spinner{width:58px;height:58px;border-radius:50%;border:6px solid rgba(255,255,255,.18);border-top-color:#43b0ff;animation:spin 1s linear infinite;margin:0 auto}
     @keyframes spin{to{transform:rotate(360deg)}}
     .proto-big{margin-top:8px;font-family:ui-monospace,monospace;background:#0d1931;border:1px solid rgba(255,255,255,.16);padding:8px 10px;border-radius:10px;display:inline-block}
+    
+    /* Ajuste para alinhar corretamente o bloco de funcionário */
+    .bloco-func-container {
+      display: grid;
+      gap: 14px;
+    }
+    
+    /* Melhorias na tela de sucesso */
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    .success-message {
+      margin: 8px 0 16px;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
@@ -198,48 +214,50 @@
         </div>
       </div>
 
-      <!-- Funcionário -->
+      <!-- Funcionário - CORRIGIDO -->
       <div id="blocoFunc" class="panel card hidden">
-        <div class="grid cols-3">
-          <div class="row">
-            <label for="tipoRelato">O que deseja registrar?</label>
-            <select id="tipoRelato" name="tipoRelato">
-              <option value="elogio">Elogio</option>
-              <option value="reclamacao">Reclamação</option>
-              <option value="avaliacao">Avaliação / Nota</option>
-            </select>
+        <div class="bloco-func-container">
+          <div class="grid cols-3">
+            <div class="row">
+              <label for="tipoRelato">O que deseja registrar?</label>
+              <select id="tipoRelato" name="tipoRelato">
+                <option value="elogio">Elogio</option>
+                <option value="reclamacao">Reclamação</option>
+                <option value="avaliacao">Avaliação / Nota</option>
+              </select>
+            </div>
+            <div class="row">
+              <label for="cargo">Cargo</label>
+              <select id="cargo" name="cargo">
+                <option value="vendedor">Vendedor(a)</option>
+                <option value="gerente">Gerente</option>
+              </select>
+            </div>
+            <div class="row">
+              <label for="funcionario">Funcionário</label>
+              <select id="funcionario" name="funcionario">
+                <option value="" disabled selected>Escolha a filial primeiro</option>
+              </select>
+              <div class="help">A lista carrega pela filial. Há "Outro" no final.</div>
+            </div>
           </div>
-          <div class="row">
-            <label for="cargo">Cargo</label>
-            <select id="cargo" name="cargo">
-              <option value="vendedor">Vendedor(a)</option>
-              <option value="gerente">Gerente</option>
-            </select>
-          </div>
-          <div class="row">
-            <label for="funcionario">Funcionário</label>
-            <select id="funcionario" name="funcionario">
-              <option value="" disabled selected>Escolha a filial primeiro</option>
-            </select>
-            <div class="help">A lista carrega pela filial. Há “Outro” no final.</div>
-          </div>
-        </div>
 
-        <div id="blocoAvaliacao" class="row">
-          <label>Nota (1 a 5)</label>
-          <div class="rating" role="radiogroup" aria-label="nota de 1 a 5">
-            <img class="star" data-v="1" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="1 estrela" />
-            <img class="star" data-v="2" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="2 estrelas" />
-            <img class="star" data-v="3" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="3 estrelas" />
-            <img class="star" data-v="4" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="4 estrelas" />
-            <img class="star" data-v="5" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="5 estrelas" />
+          <div id="blocoAvaliacao" class="row">
+            <label>Nota (1 a 5)</label>
+            <div class="rating" role="radiogroup" aria-label="nota de 1 a 5">
+              <img class="star" data-v="1" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="1 estrela" />
+              <img class="star" data-v="2" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="2 estrelas" />
+              <img class="star" data-v="3" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="3 estrelas" />
+              <img class="star" data-v="4" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="4 estrelas" />
+              <img class="star" data-v="5" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="5 estrelas" />
+            </div>
+            <input type="hidden" id="nota" name="nota" value="0" />
           </div>
-          <input type="hidden" id="nota" name="nota" value="0" />
-        </div>
 
-        <div class="row">
-          <label for="mensagemFunc">Detalhes do elogio/reclamação/avaliação</label>
-          <textarea id="mensagemFunc" name="mensagemFunc" placeholder="Conte como foi sua experiência com esse funcionário."></textarea>
+          <div class="row">
+            <label for="mensagemFunc">Detalhes do elogio/reclamação/avaliação</label>
+            <textarea id="mensagemFunc" name="mensagemFunc" placeholder="Conte como foi sua experiência com esse funcionário."></textarea>
+          </div>
         </div>
       </div>
 
@@ -264,9 +282,11 @@
   <!-- Overlay central bloqueante -->
   <div id="overlay" class="overlay" aria-hidden="true">
     <div class="card-overlay">
+      <div class="success-icon" id="successIcon">✅</div>
       <div id="ovSpin" class="spinner" aria-hidden="true"></div>
       <h3 id="ovTitle" style="margin:12px 0 4px">Enviando seu feedback…</h3>
       <div id="ovProto" class="proto-big hidden"></div>
+      <div class="success-message" id="successMessage"></div>
       <div style="margin-top:14px">
         <button id="ovBtn" class="btn-primary hidden" type="button">Fechar</button>
       </div>
@@ -397,17 +417,23 @@
     onSending(){
       $('#overlay').classList.add('show');
       $('#ovSpin').classList.remove('hidden');
+      $('#successIcon').classList.add('hidden');
       $('#ovTitle').textContent = 'Enviando seu feedback…';
       $('#ovProto').classList.add('hidden');
+      $('#successMessage').classList.add('hidden');
       $('#ovBtn').classList.add('hidden');
     },
     onSuccess(proto){
       $('#overlay').classList.add('show');
       $('#ovSpin').classList.add('hidden');
+      $('#successIcon').classList.remove('hidden');
       $('#ovTitle').textContent = '✅ Enviado com sucesso!';
       const p = $('#ovProto');
       p.textContent = proto;
       p.classList.remove('hidden');
+      const m = $('#successMessage');
+      m.textContent = 'Usaremos seus dados apenas se for necessário retornar o contato.';
+      m.classList.remove('hidden');
       const b = $('#ovBtn');
       b.classList.remove('hidden');
       b.focus();
@@ -420,7 +446,16 @@
   byId('formFeedback').addEventListener('submit', async (e)=>{
     e.preventDefault();
     const err = validar();
-    if(err){ Overlay.onSuccess('⚠️ ' + err); $('#ovTitle').textContent = 'Atenção'; return; }
+    if(err){ 
+      $('#ovTitle').textContent = 'Atenção';
+      $('#successIcon').textContent = '⚠️';
+      $('#successIcon').classList.remove('hidden');
+      $('#successMessage').textContent = err;
+      $('#successMessage').classList.remove('hidden');
+      $('#ovBtn').classList.remove('hidden');
+      $('#overlay').classList.add('show');
+      return; 
+    }
 
     const escopo = byId('tipoEscopo').value;
     const proto  = byId('protocolBox').textContent;
@@ -462,6 +497,10 @@
     }catch(e){
       $('#ovTitle').textContent = '❌ Não foi possível enviar agora. Tente novamente.';
       $('#ovSpin').classList.add('hidden');
+      $('#successIcon').classList.remove('hidden');
+      $('#successIcon').textContent = '❌';
+      $('#successMessage').textContent = 'Erro de conexão. Por favor, tente novamente.';
+      $('#successMessage').classList.remove('hidden');
       $('#ovBtn').classList.remove('hidden');
       console.error(e);
     }
