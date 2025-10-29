@@ -8,58 +8,131 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{ --bg:#0b1220;--muted:#8aa0bf;--txt:#e9eefc;--card:#121a2b;--brand:#43b0ff;--ok:#21c55d;--warn:#f59e0b;--err:#ef4444;--ring:0 0 0 3px rgba(67,176,255,.2);--radius:18px;--shadow:0 12px 36px rgba(17,25,40,.28) }
+    :root{
+      --bg:#0b1220;--muted:#8aa0bf;--txt:#e9eefc;--card:#121a2b;--brand:#43b0ff;
+      --ok:#21c55d;--warn:#f59e0b;--err:#ef4444;
+      --ring:0 0 0 3px rgba(67,176,255,.2);--radius:18px;--shadow:0 12px 36px rgba(17,25,40,.28)
+    }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{margin:0;background:linear-gradient(180deg,#0b1220 0%,#0d1526 60%,#0b1220 100%);color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
     .wrap{max-width:1100px;margin:32px auto;padding:0 16px}
+
     header{display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{display:flex;align-items:center;gap:12px}
     .brand .logo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:radial-gradient(90px 90px at 30% 30%,#5bd5ff 0%,#43b0ff 40%,#2d79ff 100%);box-shadow:var(--shadow)}
     .brand h1{margin:0;font-size:clamp(20px,2.4vw,28px);font-weight:700;letter-spacing:.2px}
     .sub{color:var(--muted);font-size:13px}
-    .card{background:linear-gradient(180deg,#121a2b 0%,#0f182b 100%);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .hero{margin:24px 0;padding:22px 22px;border-radius:var(--radius);display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+
+    .card{background:linear-gradient(180deg,#121a2b 0%,#0f182b 100%);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);box-shadow:var(--shadow);transition:transform 0.2s ease, box-shadow 0.2s ease}
+    .card:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(17,25,40,.35)}
+    .hero{margin:24px 0;padding:22px;border-radius:var(--radius);display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
     .hero h2{margin:0 0 8px;font-size:clamp(18px,2.2vw,24px)}
     .badges{display:flex;gap:8px;flex-wrap:wrap}
-    .badge{padding:6px 10px;border-radius:999px;background:#0d1931;border:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--muted)}
+    .badge{padding:6px 10px;border-radius:999px;background:#0d1931;border:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--muted);transition:all 0.2s ease}
+    .badge:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.15)}
+
     .panel{margin:20px 0;padding:18px}
     .grid{display:grid;gap:14px}
-    @media(min-width:860px){.grid.cols-2{grid-template-columns:1fr 1fr}.grid.cols-3{grid-template-columns:repeat(3,1fr)}}
-    label{font-weight:600;font-size:13px;margin-bottom:6px;display:block}
+    @media(min-width:860px){
+      .grid.cols-2{grid-template-columns:1fr 1fr}
+      .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    }
     .row{display:grid;gap:6px}
-    input[type="text"],input[type="email"],select,textarea{ width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0e1629;color:var(--txt);outline:none }
+
+    label{font-weight:600;font-size:13px;margin-bottom:6px;display:block}
+    input[type="text"],input[type="email"],select,textarea{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0e1629;color:var(--txt);outline:none;min-height:48px;transition:all 0.2s ease
+    }
+    select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#8aa0bf 50%),linear-gradient(135deg,#8aa0bf 50%,transparent 50%),linear-gradient(to right,#0e1629,#0e1629);
+           background-position:calc(100% - 20px) calc(1.1em),calc(100% - 15px) calc(1.1em),100% 0;background-size:5px 5px,5px 5px,2.4em 2.4em;background-repeat:no-repeat}
     textarea{min-height:120px;resize:vertical}
-    input:focus,select:focus,textarea:focus{box-shadow:var(--ring);border-color:#2f80ff}
-    .help{font-size:12px;color:var(--muted)}
-    .inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .switch{position:relative;width:50px;height:28px;background:#1a253a;border-radius:999px;border:1px solid rgba(255,255,255,.1);cursor:pointer}
-    .knob{position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:#fff;transition:all .2s}
-    .switch.on{background:#1f3a5f}
-    .switch.on .knob{left:24px;background:#dff3ff}
-    .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:#0d1931;font-size:13px;cursor:pointer;user-select:none}
-    .chip input{appearance:none;width:16px;height:16px;border-radius:4px;border:1px solid rgba(255,255,255,.25);display:grid;place-items:center}
-    .chip input:checked{background:conic-gradient(from 210deg at 50% 50%,#2f80ff 0%,#43b0ff 100%);border-color:transparent}
-    .rating{display:flex;gap:6px}
-    .star{width:28px;height:28px;cursor:pointer;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
+    input:focus,select:focus,textarea:focus{box-shadow:var(--ring);border-color:#2f80ff;transform:translateY(-1px)}
+
+    /* Reserva de altura para alinhar colunas com/sem help */
+    .help{font-size:12px;color:var(--muted);min-height:18px}
     .muted{color:var(--muted);font-size:13px}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    button{appearance:none;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,#1c2b49 0%,#18243d 100%);color:var(--txt);font-weight:700;cursor:pointer}
+
+    .inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .switch{position:relative;width:56px;height:30px;background:#1a253a;border-radius:999px;border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:all 0.3s ease}
+    .knob{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:all 0.3s ease;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+    .switch.on{background:#1f3a5f;border-color:#2f80ff}
+    .switch.on .knob{left:29px;background:#dff3ff;transform:scale(1.1)}
+    .switch:hover{transform:scale(1.05)}
+
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:#0d1931;font-size:13px;cursor:pointer;user-select:none;transition:all 0.2s ease}
+    .chip:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.15);background:#0e1b36}
+    .chip input{appearance:none;width:16px;height:16px;border-radius:4px;border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;transition:all 0.2s ease}
+    .chip input:checked{background:conic-gradient(from 210deg at 50% 50%,#2f80ff 0%,#43b0ff 100%);border-color:transparent;transform:scale(1.1)}
+
+    .rating{display:flex;gap:6px}
+    .star{width:28px;height:28px;cursor:pointer;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));transition:all 0.2s ease}
+    .star:hover{transform:scale(1.2)}
+
+    button{appearance:none;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,#1c2b49 0%,#18243d 100%);color:var(--txt);font-weight:700;cursor:pointer;transition:all 0.3s ease;position:relative;overflow:hidden}
+    button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left 0.5s}
+    button:hover::before{left:100%}
+    button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+    button:active{transform:translateY(0)}
     .btn-primary{background:linear-gradient(180deg,#46b7ff 0%,#2f80ff 100%);border:none;color:#0b1220}
+    .btn-primary:hover{background:linear-gradient(180deg,#5bc0ff 0%,#3a8aff 100%)}
     .btn-ghost{background:#0f192e}
-    .notice{padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f192e;display:flex;gap:10px;align-items:flex-start}
-    .notice.ok{border-color:rgba(33,197,93,.35)}
-    .notice.err{border-color:rgba(239,68,68,.35)}
+    .btn-ghost:hover{background:#131f3a;border-color:rgba(255,255,255,.2)}
+
+    .notice{padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f192e;display:flex;gap:10px;align-items:flex-start;transition:all 0.2s ease}
+    .notice:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.18)}
     .hidden{display:none!important}
+
+    /* Aviso forte (identificação) */
+    .callout{padding:12px 14px;border-radius:12px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.55);color:#ffd28a;font-weight:700;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.8}}
+
     footer{margin:28px 0 40px;color:var(--muted);font-size:12px;text-align:center}
-    .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);margin:10px 0 6px}
-    .proto{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;background:#0d1931;border-radius:10px;padding:6px 8px;display:inline-block}
+
+    /* Overlay (bloqueio durante envio e sucesso) */
+    .overlay{position:fixed;inset:0;background:rgba(7,12,22,.72);backdrop-filter:blur(3px);display:none;place-items:center;z-index:80;animation:fadeIn 0.3s ease}
+    @keyframes fadeIn{from{opacity:0} to{opacity:1}}
+    .overlay.show{display:grid}
+    .card-overlay{background:#0f182b;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px 22px 16px;min-width:min(92vw,520px);text-align:center;box-shadow:var(--shadow);animation:slideUp 0.4s ease}
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)}}
+    .spinner{width:58px;height:58px;border-radius:50%;border:6px solid rgba(255,255,255,.18);border-top-color:#43b0ff;animation:spin 1s linear infinite;margin:0 auto}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .proto-big{margin-top:8px;font-family:ui-monospace,monospace;background:#0d1931;border:1px solid rgba(255,255,255,.16);padding:8px 10px;border-radius:10px;display:inline-block;animation:bounceIn 0.6s ease}
+    @keyframes bounceIn{0%{transform:scale(0.3);opacity:0}50%{transform:scale(1.05)}70%{transform:scale(0.9)}100%{transform:scale(1);opacity:1}}
+    
+    /* CORREÇÃO: Ajuste específico para o bloco de funcionário */
+    .bloco-func-ajustado {
+      display: grid;
+      gap: 14px;
+    }
+    .bloco-func-ajustado .grid.cols-3 {
+      align-items: start;
+    }
+    .bloco-func-ajustado .row {
+      align-content: start;
+    }
+    
+    /* Melhorias na tela de sucesso */
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      animation: bounceIn 0.6s ease;
+    }
+    .success-message {
+      margin: 8px 0 16px;
+      color: var(--muted);
+      animation:fadeIn 0.5s ease 0.2s both;
+    }
+
+    /* Animações para elementos que aparecem */
+    .fade-in{animation:fadeIn 0.5s ease}
+    .slide-in{animation:slideUp 0.4s ease}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
+    <header class="fade-in">
       <div class="brand">
         <div class="logo" aria-hidden="true">👕</div>
         <div>
@@ -68,39 +141,38 @@
         </div>
       </div>
       <div class="inline muted">
-        <span id="protocolBox" class="proto" title="Protocolo desta sessão"></span>
+        <span id="protocolBox" class="proto" title="Protocolo desta sessão" style="font-family:ui-monospace,monospace;background:#0d1931;border-radius:10px;padding:6px 8px;border:1px solid rgba(255,255,255,.12)"></span>
       </div>
     </header>
 
-    <section class="hero card">
+    <section class="hero card slide-in">
       <div>
         <h2>Envie uma avaliação sobre a loja ou um elogio/reclamação de um funcionário</h2>
-        <p class="muted">Você pode se identificar ou enviar de forma anônima. O feedback será encaminhado por e‑mail automaticamente para a equipe responsável.</p>
+        <p class="muted">Você pode se identificar ou enviar de forma anônima. O feedback será encaminhado por e-mail automaticamente para a equipe responsável.</p>
         <div class="badges" aria-label="opções rápidas">
           <span class="badge">Anonimato opcional</span>
           <span class="badge">Rápido de preencher</span>
-          <span class="badge">Encaminhamento por e‑mail</span>
+          <span class="badge">Encaminhamento por e-mail</span>
         </div>
       </div>
       <div class="notice">
-        <div>ℹ️</div>
-        <div>
-          <strong>Privacidade:</strong> se optar por <em>anônimo</em>, não coletaremos nome, e‑mail ou telefone. Usamos apenas o que for necessário para entender seu relato.
-        </div>
+        <div>🔒</div>
+        <div><strong>Privacidade:</strong> se optar por <em>anônimo</em>, não coletaremos nome, e-mail ou telefone. Usamos apenas o necessário para entender seu relato.</div>
       </div>
     </section>
 
-    <form id="formFeedback" class="card panel" novalidate>
-      <div class="grid cols-3">
+    <form id="formFeedback" class="card panel fade-in" novalidate>
+      <!-- Filial + Tipo (alinhados) -->
+      <div class="grid cols-2">
         <div class="row">
           <label for="filial">Filial</label>
           <select id="filial" name="filial" required>
             <option value="" selected disabled>Selecione…</option>
-            <option value="293">293 — ARTUR</option>
-            <option value="488">488 — FLORIANO</option>
-            <option value="287">287 — JOTA</option>
-            <option value="288">288 — MODA</option>
-            <option value="761">761 — PONTO</option>
+            <option value="293">Uberaba — Prudente de Morais</option>
+            <option value="288">Uberaba — Shopping Uberaba</option>
+            <option value="287">Uberlândia — Uberlândia Shopping</option>
+            <option value="488">Uberlândia — Floriano Peixoto</option>
+            <option value="761">Poços de Caldas — Rua Rio de Janeiro</option>
           </select>
           <div class="help">Escolha a loja relacionada ao seu feedback.</div>
         </div>
@@ -111,28 +183,32 @@
             <option value="loja">Avaliação da Loja</option>
             <option value="funcionario">Elogio/Reclamação de Funcionário</option>
           </select>
-        </div>
-        <div class="row">
-          <label>Enviar como anônimo?</label>
-          <div class="inline">
-            <div id="anonSwitch" class="switch" role="switch" aria-checked="false" tabindex="0"><div class="knob"></div></div>
-            <input type="hidden" id="anonimo" name="anonimo" value="nao" />
-            <span class="help">Ative para ocultar seus dados pessoais.</span>
-          </div>
+          <div class="help"></div>
         </div>
       </div>
 
-      <!-- BLOCO: DADOS PESSOAIS -->
+      <!-- Anônimo -->
+      <div class="row" style="margin-top:6px">
+        <label>Enviar como anônimo?</label>
+        <div class="inline">
+          <div id="anonSwitch" class="switch" role="switch" aria-checked="false" tabindex="0"><div class="knob"></div></div>
+          <input type="hidden" id="anonimo" name="anonimo" value="nao" />
+          <span class="help">Desative o anonimato para se identificar.</span>
+        </div>
+        <div id="identWarning" class="callout hidden" style="margin-top:8px">⚠️ Com o modo <b>anônimo DESATIVADO</b>, o <b>Nome</b> torna-se <u>OBRIGATÓRIO</u> e você deve marcar o <b>consentimento</b>.</div>
+      </div>
+
+      <!-- Dados pessoais -->
       <div id="blocoPessoal" class="panel card">
         <div class="grid cols-3">
-          <div class="row"><label for="nome">Seu nome (opcional)</label><input id="nome" name="nome" type="text" placeholder="Ex.: Maria Silva" /></div>
-          <div class="row"><label for="email">E‑mail (opcional)</label><input id="email" name="email" type="email" placeholder="seunome@email.com" /></div>
-          <div class="row"><label for="telefone">Telefone (opcional)</label><input id="telefone" name="telefone" type="text" placeholder="(xx) xxxxx‑xxxx" /></div>
+          <div class="row"><label for="nome">Seu nome</label><input id="nome" name="nome" type="text" placeholder="Ex.: Maria Silva" /></div>
+          <div class="row"><label for="email">E-mail (opcional)</label><input id="email" name="email" type="email" placeholder="seunome@email.com" /></div>
+          <div class="row"><label for="telefone">Telefone (opcional)</label><input id="telefone" name="telefone" type="text" placeholder="(xx) xxxxx-xxxx" /></div>
         </div>
-        <div class="help">Seus dados ajudam caso seja necessário retornar o contato — deixá‑los em branco mantém seu relato anônimo.</div>
+        <div class="help">Usaremos seus dados apenas se for necessário retornar o contato.</div>
       </div>
 
-      <!-- BLOCO: AVALIAÇÃO DA LOJA -->
+      <!-- Loja -->
       <div id="blocoLoja" class="panel card hidden">
         <div class="grid cols-2">
           <div class="row">
@@ -152,7 +228,6 @@
           <div class="row">
             <label for="tipoMercadoria">Tipo de mercadoria (opcional)</label>
             <input id="tipoMercadoria" name="tipoMercadoria" type="text" placeholder="Ex.: camisetas básicas, jeans, infantil…" />
-            <div class="help">Campo livre — preencha se o seu relato for sobre um tipo específico.</div>
           </div>
         </div>
         <div class="row">
@@ -162,108 +237,144 @@
         <div class="row">
           <label for="anexosLoja">Anexar imagem (opcional)</label>
           <input id="anexosLoja" name="anexosLoja" type="file" accept="image/*" />
-          <div class="help">Ajuda muito se tiver foto de etiqueta, gôndola, fila, etc.</div>
+          <div class="help">Foto de etiqueta, gôndola, fila etc. ajuda bastante.</div>
         </div>
       </div>
 
-      <!-- BLOCO: FUNCIONÁRIO -->
+      <!-- Funcionário - CORREÇÃO APLICADA -->
       <div id="blocoFunc" class="panel card hidden">
-        <div class="grid cols-3">
-          <div class="row">
-            <label for="tipoRelato">O que você deseja registrar?</label>
-            <select id="tipoRelato" name="tipoRelato">
-              <option value="elogio">Elogio</option>
-              <option value="reclamacao">Reclamação</option>
-              <option value="avaliacao">Avaliação / Nota</option>
-            </select>
+        <div class="bloco-func-ajustado">
+          <div class="grid cols-3">
+            <div class="row">
+              <label for="tipoRelato">O que deseja registrar?</label>
+              <select id="tipoRelato" name="tipoRelato">
+                <option value="elogio">Elogio</option>
+                <option value="reclamacao">Reclamação</option>
+                <option value="avaliacao">Avaliação / Nota</option>
+              </select>
+            </div>
+            <div class="row">
+              <label for="cargo">Cargo</label>
+              <select id="cargo" name="cargo">
+                <option value="vendedor">Vendedor(a)</option>
+                <option value="gerente">Gerente</option>
+              </select>
+            </div>
+            <div class="row">
+              <label for="funcionario">Funcionário</label>
+              <select id="funcionario" name="funcionario">
+                <option value="" disabled selected>Escolha a filial primeiro</option>
+              </select>
+              <div class="help"></div>
+            </div>
           </div>
-          <div class="row">
-            <label for="cargo">Cargo</label>
-            <select id="cargo" name="cargo">
-              <option value="vendedor">Vendedor(a)</option>
-              <option value="gerente">Gerente</option>
-            </select>
-          </div>
-          <div class="row">
-            <label for="funcionario">Funcionário</label>
-            <select id="funcionario" name="funcionario">
-              <option value="" disabled selected>Escolha a filial primeiro</option>
-            </select>
-            <div class="help">A lista é carregada pela filial selecionada. Há também a opção "Outro" ao final.</div>
-          </div>
-        </div>
 
-        <div id="blocoAvaliacao" class="row">
-          <label>Nota (1 a 5)</label>
-          <div class="rating" role="radiogroup" aria-label="nota de 1 a 5">
-            <img class="star" data-v="1" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="1 estrela" />
-            <img class="star" data-v="2" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="2 estrelas" />
-            <img class="star" data-v="3" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="3 estrelas" />
-            <img class="star" data-v="4" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="4 estrelas" />
-            <img class="star" data-v="5" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="5 estrelas" />
+          <div id="blocoAvaliacao" class="row">
+            <label>Nota (1 a 5)</label>
+            <div class="rating" role="radiogroup" aria-label="nota de 1 a 5">
+              <img class="star" data-v="1" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="1 estrela" />
+              <img class="star" data-v="2" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="2 estrelas" />
+              <img class="star" data-v="3" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="3 estrelas" />
+              <img class="star" data-v="4" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="4 estrelas" />
+              <img class="star" data-v="5" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23a3b3d6' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>" alt="5 estrelas" />
+            </div>
+            <input type="hidden" id="nota" name="nota" value="0" />
           </div>
-          <input type="hidden" id="nota" name="nota" value="0" />
-        </div>
 
-        <div class="row">
-          <label for="mensagemFunc">Detalhes do elogio/reclamação/avaliação</label>
-          <textarea id="mensagemFunc" name="mensagemFunc" placeholder="Conte como foi sua experiência com esse funcionário."></textarea>
+          <div class="row">
+            <label for="mensagemFunc">Detalhes do elogio/reclamação/avaliação</label>
+            <textarea id="mensagemFunc" name="mensagemFunc" placeholder="Conte como foi sua experiência com esse funcionário."></textarea>
+          </div>
         </div>
       </div>
 
-      <!-- CONSENTIMENTO & AÇÕES -->
+      <!-- Consentimento + Ações -->
       <div class="grid cols-2">
         <div class="row">
-          <label class="inline">
+          <label class="inline" style="gap:10px">
             <input id="consent" type="checkbox" /> Concordo com o uso dos meus dados para contato e melhoria do atendimento.
           </label>
-          <div class="help">Obrigatório apenas quando <strong>não</strong> for anônimo.</div>
+          <div class="help"><strong>Obrigatório</strong> apenas quando <strong>não</strong> estiver em modo anônimo.</div>
         </div>
-        <div class="row actions" style="justify-content:flex-end">
+        <div class="row" style="display:flex;justify-content:flex-end;gap:10px">
           <button type="button" class="btn-ghost" id="btnLimpar">Limpar</button>
           <button type="submit" class="btn-primary" id="btnEnviar">Enviar agora</button>
         </div>
       </div>
-
-      <div id="boxMsg" class="notice hidden" role="status" aria-live="polite"></div>
     </form>
 
-    <footer>
-      © <span id="year"></span> HS Central — Canal de Feedback | <a href="#" class="muted" id="printLink">Imprimir/Salvar PDF</a>
-    </footer>
+    <footer>© <span id="year"></span> HS Central — Canal de Feedback</footer>
+  </div>
+
+  <!-- Overlay central bloqueante -->
+  <div id="overlay" class="overlay" aria-hidden="true">
+    <div class="card-overlay">
+      <div class="success-icon" id="successIcon">✅</div>
+      <div id="ovSpin" class="spinner" aria-hidden="true"></div>
+      <h3 id="ovTitle" style="margin:12px 0 4px">Enviando seu feedback…</h3>
+      <div id="ovProto" class="proto-big hidden"></div>
+      <div class="success-message" id="successMessage"></div>
+      <div style="margin-top:14px">
+        <button id="ovBtn" class="btn-primary hidden" type="button">Fechar</button>
+      </div>
+    </div>
   </div>
 
 <script>
-  // ====== Dados de referência ======
+  // ====== Dados de referência (exibição amigável, values mantêm códigos) ======
   const FUNCIONARIOS = {
-    '293': { vendedor: ['Tainara', 'Polyana'], gerente: ['Lucinele'] },
-    '488': { vendedor: ['Sara', 'Iolanda', 'Gabriela'], gerente: ['Meire'] },
-    '287': { vendedor: ['Vera', 'Karina', 'Rayssa'], gerente: ['Bruno'] },
-    '288': { vendedor: ['Maria', 'Marcia', 'Joana'], gerente: ['Dayane'] },
-    '761': { vendedor: ['Dani', 'Isadora', 'Paula'], gerente: ['Sônia'] }
+    '293': { vendedor: ['Tainara','Polyana'], gerente: ['Lucinele'] },
+    '488': { vendedor: ['Sara','Iolanda','Gabriela'], gerente: ['Meire'] },
+    '287': { vendedor: ['Vera','Karina','Rayssa'], gerente: ['Bruno'] },
+    '288': { vendedor: ['Maria','Marcia','Joana'], gerente: ['Dayane'] },
+    '761': { vendedor: ['Dani','Isadora','Paula'], gerente: ['Sônia'] }
   };
 
-  // ====== Utilidades ======
-  const $ = sel => document.querySelector(sel);
-  const $$ = sel => Array.from(document.querySelectorAll(sel));
+  // ====== Utils ======
+  const $  = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
   const byId = id => document.getElementById(id);
   const protocol = () => 'HS-' + new Date().toISOString().replace(/[-:T.Z]/g,'').slice(0,14);
   const isAnon = () => byId('anonimo').value === 'sim';
 
-  // ====== Estado inicial ======
-  byId('protocolBox').textContent = protocol();
+  // Estado inicial - AGORA COM RESET COMPLETO
+  function inicializarFormulario() {
+    byId('formFeedback').reset();
+    setAnon(false); 
+    paintStars(0); 
+    byId('protocolBox').textContent = protocol();
+    byId('blocoLoja').classList.add('hidden'); 
+    byId('blocoFunc').classList.add('hidden');
+    byId('funcionario').innerHTML = '<option value="" disabled selected>Escolha a filial primeiro</option>';
+    byId('filial').value = '';
+    byId('tipoEscopo').value = '';
+    byId('consent').checked = false;
+  }
+
+  // Inicializar ao carregar a página
+  inicializarFormulario();
   byId('year').textContent = new Date().getFullYear();
 
-  // Switch anônimo
+  // Switch anônimo + aviso forte
   const sw = byId('anonSwitch');
   const setAnon = (on) => {
-    if(on){ sw.classList.add('on'); sw.setAttribute('aria-checked','true'); byId('anonimo').value='sim'; byId('blocoPessoal').classList.add('hidden'); byId('consent').checked=false; }
-    else { sw.classList.remove('on'); sw.setAttribute('aria-checked','false'); byId('anonimo').value='nao'; byId('blocoPessoal').classList.remove('hidden'); }
+    if(on){
+      sw.classList.add('on'); sw.setAttribute('aria-checked','true');
+      byId('anonimo').value='sim';
+      byId('blocoPessoal').classList.add('hidden');
+      byId('consent').checked=false;
+      byId('identWarning').classList.add('hidden');
+    } else {
+      sw.classList.remove('on'); sw.setAttribute('aria-checked','false');
+      byId('anonimo').value='nao';
+      byId('blocoPessoal').classList.remove('hidden');
+      byId('identWarning').classList.remove('hidden');
+    }
   };
   sw.addEventListener('click', ()=> setAnon(!sw.classList.contains('on')));
   sw.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); sw.click(); }});
 
-  // Alternância de blocos
+  // Alternar blocos Loja/Funcionário
   const toggleEscopo = () => {
     const t = byId('tipoEscopo').value;
     byId('blocoLoja').classList.toggle('hidden', t !== 'loja');
@@ -271,16 +382,23 @@
   };
   byId('tipoEscopo').addEventListener('change', toggleEscopo);
 
-  // Carregar funcionários
+  // Carregar funcionários por filial/cargo - REMOVIDO "OUTRO"
   const carregarFuncionarios = () => {
     const filial = byId('filial').value;
-    const cargo = byId('cargo').value;
+    const cargo  = byId('cargo').value;
     const sel = byId('funcionario');
     sel.innerHTML = '';
-    if(!filial){ sel.innerHTML = '<option disabled selected>Escolha a filial primeiro</option>'; return; }
+    if(!filial){ 
+      sel.innerHTML = '<option value="" disabled selected>Escolha a filial primeiro</option>'; 
+      return; 
+    }
     const lista = (FUNCIONARIOS[filial] && FUNCIONARIOS[filial][cargo]) || [];
-    if(lista.length === 0){ sel.innerHTML = '<option disabled selected>Sem cadastro</option>'; return; }
-    sel.innerHTML = '<option disabled selected>Selecione…</option>' + lista.map(n => `<option value="${n}">${n}</option>`).join('') + '<option value="Outro">Outro (digitar no campo de detalhes)</option>';
+    if(lista.length === 0){ 
+      sel.innerHTML = '<option value="" disabled selected>Nenhum funcionário encontrado</option>'; 
+      return; 
+    }
+    sel.innerHTML = '<option value="" disabled selected>Selecione…</option>' +
+      lista.map(n => `<option value="${n}">${n}</option>`).join('');
   };
   byId('filial').addEventListener('change', ()=>{carregarFuncionarios();toggleEscopo();});
   byId('cargo').addEventListener('change', carregarFuncionarios);
@@ -295,48 +413,99 @@
   };
   $$('.star').forEach(el=> el.addEventListener('click', ()=>{ const v = +el.dataset.v; byId('nota').value = v; paintStars(v);}));
 
-  // Limpar
-  byId('btnLimpar').addEventListener('click', ()=>{
-    byId('formFeedback').reset(); setAnon(false); paintStars(0); byId('protocolBox').textContent = protocol();
-    byId('boxMsg').className = 'notice hidden'; byId('boxMsg').textContent = '';
-    byId('blocoLoja').classList.add('hidden'); byId('blocoFunc').classList.add('hidden');
-    byId('funcionario').innerHTML = '<option disabled selected>Escolha a filial primeiro</option>';
-  });
-
-  // Imprimir/Salvar PDF
-  byId('printLink').addEventListener('click', (e)=>{e.preventDefault(); window.print();});
+  // Limpar - AGORA USA A FUNÇÃO DE INICIALIZAÇÃO
+  byId('btnLimpar').addEventListener('click', inicializarFormulario);
 
   // Validação
   function validar(){
-    const filial = byId('filial').value; const escopo = byId('tipoEscopo').value;
+    const filial = byId('filial').value;
+    const escopo = byId('tipoEscopo').value;
     if(!filial || !escopo) return 'Selecione a filial e o tipo (Loja/Funcionário).';
-    if(!isAnon() && !byId('consent').checked) return 'Marque o consentimento para uso dos dados (ou ative o modo anônimo).';
+
+    if(!isAnon()){
+      if(!byId('nome').value.trim()) return 'Informe o seu NOME (identificação obrigatória sem anonimato).';
+      if(!byId('consent').checked)   return 'Marque o consentimento de uso dos dados.';
+    }
+
     if(escopo==='loja'){
-      const msg = byId('mensagemLoja').value.trim(); if(!msg) return 'Descreva seu relato sobre a loja.';
+      const msg = byId('mensagemLoja').value.trim();
+      if(!msg) return 'Descreva seu relato sobre a loja.';
     } else {
-      const func = byId('funcionario').value; const msg = byId('mensagemFunc').value.trim(); const tipoRelato = byId('tipoRelato').value;
-      if(!func) return 'Selecione o funcionário (ou use "Outro" e descreva no texto).';
-      if(!msg) return 'Descreva seu elogio/reclamação/avaliação.';
+      const func = byId('funcionario').value;
+      const msg  = byId('mensagemFunc').value.trim();
+      const tipoRelato = byId('tipoRelato').value;
+      if(!func) return 'Selecione o funcionário.';
+      if(!msg)  return 'Descreva seu elogio/reclamação/avaliação.';
       if(tipoRelato==='avaliacao' && +byId('nota').value === 0) return 'Informe a nota (1 a 5) para a avaliação.';
     }
     return null;
   }
 
-  // ====== Envio real ======
+  // Endpoint (modo no-cors)
   const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyipMWVLHxYE8hR3js46ZUmTm4zfGE2wZ8fqr_-fcHdR4v5xP_ujUZubghuu_imNcGkaQ/exec';
 
-  async function toBase64(file){
-    return new Promise((resolve,reject)=>{ const r = new FileReader(); r.onload = ()=> resolve(String(r.result)); r.onerror = reject; r.readAsDataURL(file); });
+  // Helper
+  function toBase64(file){
+    return new Promise((resolve,reject)=>{
+      const r = new FileReader();
+      r.onload = ()=> resolve(String(r.result));
+      r.onerror = reject; r.readAsDataURL(file);
+    });
   }
 
+  // Overlay controller
+  const Overlay = {
+    onSending(){
+      $('#overlay').classList.add('show');
+      $('#ovSpin').classList.remove('hidden');
+      $('#successIcon').classList.add('hidden');
+      $('#ovTitle').textContent = 'Enviando seu feedback…';
+      $('#ovProto').classList.add('hidden');
+      $('#successMessage').classList.add('hidden');
+      $('#ovBtn').classList.add('hidden');
+    },
+    onSuccess(proto){
+      $('#overlay').classList.add('show');
+      $('#ovSpin').classList.add('hidden');
+      $('#successIcon').classList.remove('hidden');
+      $('#ovTitle').textContent = '✅ Enviado com sucesso!';
+      const p = $('#ovProto');
+      p.textContent = proto;
+      p.classList.remove('hidden');
+      const m = $('#successMessage');
+      m.textContent = 'Usaremos seus dados apenas se for necessário retornar o contato.';
+      m.classList.remove('hidden');
+      const b = $('#ovBtn');
+      b.classList.remove('hidden');
+      b.focus();
+    },
+    off(){ 
+      $('#overlay').classList.remove('show');
+      // RESET COMPLETO DO FORMULÁRIO APÓS FECHAR O OVERLAY
+      setTimeout(inicializarFormulario, 300);
+    }
+  };
+  $('#ovBtn').addEventListener('click', ()=>{ Overlay.off(); });
+
+  // Envio
   byId('formFeedback').addEventListener('submit', async (e)=>{
     e.preventDefault();
-    const err = validar(); const box = byId('boxMsg');
-    if(err){ box.className='notice err'; box.textContent = '⚠️ ' + err; return; }
+    const err = validar();
+    if(err){ 
+      $('#ovTitle').textContent = 'Atenção';
+      $('#successIcon').textContent = '⚠️';
+      $('#successIcon').classList.remove('hidden');
+      $('#successMessage').textContent = err;
+      $('#successMessage').classList.remove('hidden');
+      $('#ovBtn').classList.remove('hidden');
+      $('#overlay').classList.add('show');
+      return; 
+    }
 
     const escopo = byId('tipoEscopo').value;
+    const proto  = byId('protocolBox').textContent;
     const payload = {
-      protocolo: byId('protocolBox').textContent,
+      protocolo: proto,
       dataISO: new Date().toISOString(),
       filial: byId('filial').value,
       anonimo: isAnon(),
@@ -351,7 +520,8 @@
       payload.categorias = $$('input[name="cats"]:checked').map(i=>i.value);
       payload.tipoMercadoria = byId('tipoMercadoria').value || null;
       payload.mensagem = byId('mensagemLoja').value.trim();
-      const f = byId('anexosLoja').files?.[0]; payload.anexo = f ? await toBase64(f) : null;
+      const f = byId('anexosLoja').files?.[0];
+      payload.anexo = f ? await toBase64(f) : null;
     } else {
       payload.tipoRelato = byId('tipoRelato').value;
       payload.cargo = byId('cargo').value;
@@ -360,16 +530,20 @@
       payload.mensagem = byId('mensagemFunc').value.trim();
     }
 
-    try {
-      box.className='notice'; box.textContent='⏳ Enviando seu feedback…';
-      const res = await fetch(ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json', 'Accept':'application/json' }, body: JSON.stringify(payload) });
-      let data = null; try { data = await res.json(); } catch(e) {}
-      if(!res.ok || !data || data.ok !== true){ const msg = (data && data.error) ? data.error : `Falha no envio (${res.status})`; throw new Error(msg); }
-      box.className='notice ok'; box.innerHTML = `✅ Obrigado! Seu protocolo é <strong>${payload.protocolo}</strong>. Você receberá retorno se necessário.`;
-      (document.scrollingElement||document.documentElement).scrollTo({top:0,behavior:'smooth'});
-      // byId('btnLimpar').click();
-    } catch (e) {
-      console.error(e); box.className='notice err'; box.textContent='❌ Não foi possível enviar agora: ' + (e.message || e);
+    try{
+      Overlay.onSending();
+      await fetch(ENDPOINT, { method:'POST', mode:'no-cors', body: JSON.stringify(payload) });
+      // sucesso
+      Overlay.onSuccess(proto);
+    }catch(e){
+      $('#ovTitle').textContent = '❌ Não foi possível enviar agora. Tente novamente.';
+      $('#ovSpin').classList.add('hidden');
+      $('#successIcon').classList.remove('hidden');
+      $('#successIcon').textContent = '❌';
+      $('#successMessage').textContent = 'Erro de conexão. Por favor, tente novamente.';
+      $('#successMessage').classList.remove('hidden');
+      $('#ovBtn').classList.remove('hidden');
+      console.error(e);
     }
   });
 </script>
