@@ -352,66 +352,104 @@
   }
 
   // Inicializar ao carregar a página
-  inicializarFormulario();
-  byId('year').textContent = new Date().getFullYear();
+  document.addEventListener('DOMContentLoaded', function() {
+    inicializarFormulario();
+    byId('year').textContent = new Date().getFullYear();
+  });
 
-  // Switch anônimo + aviso forte
+  // Switch anônimo + aviso forte - CORRIGIDO
   const sw = byId('anonSwitch');
   const setAnon = (on) => {
     if(on){
-      sw.classList.add('on'); sw.setAttribute('aria-checked','true');
-      byId('anonimo').value='sim';
+      sw.classList.add('on'); 
+      sw.setAttribute('aria-checked','true');
+      byId('anonimo').value = 'sim';
       byId('blocoPessoal').classList.add('hidden');
-      byId('consent').checked=false;
+      byId('consent').checked = false;
       byId('identWarning').classList.add('hidden');
     } else {
-      sw.classList.remove('on'); sw.setAttribute('aria-checked','false');
-      byId('anonimo').value='nao';
+      sw.classList.remove('on'); 
+      sw.setAttribute('aria-checked','false');
+      byId('anonimo').value = 'nao';
       byId('blocoPessoal').classList.remove('hidden');
       byId('identWarning').classList.remove('hidden');
     }
   };
-  sw.addEventListener('click', ()=> setAnon(!sw.classList.contains('on')));
-  sw.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); sw.click(); }});
 
-  // Alternar blocos Loja/Funcionário
+  // CORREÇÃO: Event listeners do switch
+  sw.addEventListener('click', function() {
+    setAnon(!sw.classList.contains('on'));
+  });
+  
+  sw.addEventListener('keydown', function(e) {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault(); 
+      setAnon(!sw.classList.contains('on'));
+    }
+  });
+
+  // Alternar blocos Loja/Funcionário - CORRIGIDO
   const toggleEscopo = () => {
     const t = byId('tipoEscopo').value;
     byId('blocoLoja').classList.toggle('hidden', t !== 'loja');
     byId('blocoFunc').classList.toggle('hidden', t !== 'funcionario');
+    
+    // Se selecionou funcionário e já tem filial selecionada, carrega os funcionários
+    if (t === 'funcionario' && byId('filial').value) {
+      carregarFuncionarios();
+    }
   };
+  
   byId('tipoEscopo').addEventListener('change', toggleEscopo);
 
-  // Carregar funcionários por filial/cargo - REMOVIDO "OUTRO"
+  // Carregar funcionários por filial/cargo - CORRIGIDO
   const carregarFuncionarios = () => {
     const filial = byId('filial').value;
-    const cargo  = byId('cargo').value;
+    const cargo = byId('cargo').value;
     const sel = byId('funcionario');
+    
     sel.innerHTML = '';
-    if(!filial){ 
+    
+    if(!filial) { 
       sel.innerHTML = '<option value="" disabled selected>Escolha a filial primeiro</option>'; 
       return; 
     }
+    
     const lista = (FUNCIONARIOS[filial] && FUNCIONARIOS[filial][cargo]) || [];
-    if(lista.length === 0){ 
+    
+    if(lista.length === 0) { 
       sel.innerHTML = '<option value="" disabled selected>Nenhum funcionário encontrado</option>'; 
       return; 
     }
+    
     sel.innerHTML = '<option value="" disabled selected>Selecione…</option>' +
       lista.map(n => `<option value="${n}">${n}</option>`).join('');
   };
-  byId('filial').addEventListener('change', ()=>{carregarFuncionarios();toggleEscopo();});
+
+  // CORREÇÃO: Event listeners para carregar funcionários
+  byId('filial').addEventListener('change', function() {
+    carregarFuncionarios();
+    toggleEscopo();
+  });
+  
   byId('cargo').addEventListener('change', carregarFuncionarios);
 
   // Estrelas
   const paintStars = (n) => {
-    $$('.star').forEach((el,i)=>{
+    $$('.star').forEach((el, i) => {
       const on = i < n;
       const fill = on ? '%23ffd34d' : '%23a3b3d6';
       el.src = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='${fill}' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>`;
     });
   };
-  $$('.star').forEach(el=> el.addEventListener('click', ()=>{ const v = +el.dataset.v; byId('nota').value = v; paintStars(v);}));
+  
+  $$('.star').forEach(el => {
+    el.addEventListener('click', function() { 
+      const v = +el.dataset.v; 
+      byId('nota').value = v; 
+      paintStars(v);
+    });
+  });
 
   // Limpar - AGORA USA A FUNÇÃO DE INICIALIZAÇÃO
   byId('btnLimpar').addEventListener('click', inicializarFormulario);
@@ -427,7 +465,7 @@
       if(!byId('consent').checked)   return 'Marque o consentimento de uso dos dados.';
     }
 
-    if(escopo==='loja'){
+    if(escopo === 'loja'){
       const msg = byId('mensagemLoja').value.trim();
       if(!msg) return 'Descreva seu relato sobre a loja.';
     } else {
@@ -436,7 +474,7 @@
       const tipoRelato = byId('tipoRelato').value;
       if(!func) return 'Selecione o funcionário.';
       if(!msg)  return 'Descreva seu elogio/reclamação/avaliação.';
-      if(tipoRelato==='avaliacao' && +byId('nota').value === 0) return 'Informe a nota (1 a 5) para a avaliação.';
+      if(tipoRelato === 'avaliacao' && +byId('nota').value === 0) return 'Informe a nota (1 a 5) para a avaliação.';
     }
     return null;
   }
@@ -449,7 +487,8 @@
     return new Promise((resolve,reject)=>{
       const r = new FileReader();
       r.onload = ()=> resolve(String(r.result));
-      r.onerror = reject; r.readAsDataURL(file);
+      r.onerror = reject; 
+      r.readAsDataURL(file);
     });
   }
 
@@ -485,13 +524,17 @@
       setTimeout(inicializarFormulario, 300);
     }
   };
-  $('#ovBtn').addEventListener('click', ()=>{ Overlay.off(); });
+  
+  $('#ovBtn').addEventListener('click', function() { 
+    Overlay.off(); 
+  });
 
   // Envio
-  byId('formFeedback').addEventListener('submit', async (e)=>{
+  byId('formFeedback').addEventListener('submit', async (e) => {
     e.preventDefault();
     const err = validar();
-    if(err){ 
+    
+    if(err) { 
       $('#ovTitle').textContent = 'Atenção';
       $('#successIcon').textContent = '⚠️';
       $('#successIcon').classList.remove('hidden');
@@ -503,7 +546,7 @@
     }
 
     const escopo = byId('tipoEscopo').value;
-    const proto  = byId('protocolBox').textContent;
+    const proto = byId('protocolBox').textContent;
     const payload = {
       protocolo: proto,
       dataISO: new Date().toISOString(),
@@ -516,8 +559,8 @@
       consent: byId('consent').checked,
     };
 
-    if(escopo==='loja'){
-      payload.categorias = $$('input[name="cats"]:checked').map(i=>i.value);
+    if(escopo === 'loja'){
+      payload.categorias = $$('input[name="cats"]:checked').map(i => i.value);
       payload.tipoMercadoria = byId('tipoMercadoria').value || null;
       payload.mensagem = byId('mensagemLoja').value.trim();
       const f = byId('anexosLoja').files?.[0];
@@ -530,12 +573,12 @@
       payload.mensagem = byId('mensagemFunc').value.trim();
     }
 
-    try{
+    try {
       Overlay.onSending();
-      await fetch(ENDPOINT, { method:'POST', mode:'no-cors', body: JSON.stringify(payload) });
+      await fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
       // sucesso
       Overlay.onSuccess(proto);
-    }catch(e){
+    } catch(e) {
       $('#ovTitle').textContent = '❌ Não foi possível enviar agora. Tente novamente.';
       $('#ovSpin').classList.add('hidden');
       $('#successIcon').classList.remove('hidden');
