@@ -492,7 +492,7 @@
     });
   }
 
-  // Overlay controller
+  // Overlay controller - CORREÇÃO: Não reseta o formulário em caso de erro
   const Overlay = {
     onSending(){
       $('#overlay').classList.add('show');
@@ -518,30 +518,46 @@
       b.classList.remove('hidden');
       b.focus();
     },
+    onError(errorMsg) {
+      $('#overlay').classList.add('show');
+      $('#ovSpin').classList.add('hidden');
+      $('#successIcon').classList.remove('hidden');
+      $('#successIcon').textContent = '⚠️';
+      $('#ovTitle').textContent = 'Atenção';
+      $('#successMessage').textContent = errorMsg;
+      $('#successMessage').classList.remove('hidden');
+      $('#ovBtn').classList.remove('hidden');
+      $('#ovBtn').textContent = 'Corrigir';
+    },
     off(){ 
       $('#overlay').classList.remove('show');
-      // RESET COMPLETO DO FORMULÁRIO APÓS FECHAR O OVERLAY
+    },
+    offAndReset() {
+      $('#overlay').classList.remove('show');
+      // Só reseta o formulário quando é sucesso, não quando é erro
       setTimeout(inicializarFormulario, 300);
     }
   };
   
-  $('#ovBtn').addEventListener('click', function() { 
-    Overlay.off(); 
+  // CORREÇÃO: Botão do overlay - comportamento diferente para erro vs sucesso
+  $('#ovBtn').addEventListener('click', function() {
+    // Se é mensagem de sucesso, reseta o formulário
+    if ($('#ovTitle').textContent === '✅ Enviado com sucesso!') {
+      Overlay.offAndReset();
+    } else {
+      // Se é mensagem de erro, apenas fecha o overlay mantendo os dados
+      Overlay.off();
+    }
   });
 
-  // Envio
+  // Envio - CORREÇÃO: Não reseta em caso de erro
   byId('formFeedback').addEventListener('submit', async (e) => {
     e.preventDefault();
     const err = validar();
     
     if(err) { 
-      $('#ovTitle').textContent = 'Atenção';
-      $('#successIcon').textContent = '⚠️';
-      $('#successIcon').classList.remove('hidden');
-      $('#successMessage').textContent = err;
-      $('#successMessage').classList.remove('hidden');
-      $('#ovBtn').classList.remove('hidden');
-      $('#overlay').classList.add('show');
+      // CORREÇÃO: Mostra o erro sem resetar o formulário
+      Overlay.onError(err);
       return; 
     }
 
@@ -586,6 +602,7 @@
       $('#successMessage').textContent = 'Erro de conexão. Por favor, tente novamente.';
       $('#successMessage').classList.remove('hidden');
       $('#ovBtn').classList.remove('hidden');
+      $('#ovBtn').textContent = 'Fechar';
       console.error(e);
     }
   });
