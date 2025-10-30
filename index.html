@@ -312,6 +312,9 @@
         font-size: 16px;
       }
     }
+
+    /* <<< PATCH MÍNIMO: esconder o botão do overlay >>> */
+    #ovBtn { display: none !important; }
   </style>
 </head>
 <body>
@@ -505,7 +508,7 @@
     </div>
   </div>
 
-  <!-- O SCRIPT JAVASCRIPT PERMANECE EXATAMENTE IGUAL -->
+  <!-- O SCRIPT JAVASCRIPT PERMANECE EXATAMENTE IGUAL, COM PATCH MÍNIMO NO OVERLAY -->
   <script>
     // ====== Dados de referência (exibição amigável, values mantêm códigos) ======
     const FUNCIONARIOS = {
@@ -523,7 +526,7 @@
     const protocol = () => 'HS-' + new Date().toISOString().replace(/[-:T.Z]/g,'').slice(0,14);
     const isAnon = () => byId('anonimo').value === 'sim';
 
-    // Estado inicial - AGORA COM RESET COMPLETO
+    // Estado inicial
     function inicializarFormulario() {
       byId('formFeedback').reset();
       setAnon(false); 
@@ -543,7 +546,7 @@
       byId('year').textContent = new Date().getFullYear();
     });
 
-    // Switch anônimo + aviso forte - CORREÇÃO APLICADA
+    // Switch anônimo + aviso forte
     const sw = byId('anonSwitch');
     const setAnon = (on) => {
       if(on){
@@ -562,11 +565,9 @@
       }
     };
 
-    // CORREÇÃO: Event listeners do switch
     sw.addEventListener('click', function() {
       setAnon(!sw.classList.contains('on'));
     });
-    
     sw.addEventListener('keydown', function(e) {
       if(e.key === 'Enter' || e.key === ' ') {
         e.preventDefault(); 
@@ -574,50 +575,39 @@
       }
     });
 
-    // Alternar blocos Loja/Funcionário - CORREÇÃO APLICADA
+    // Alternar blocos Loja/Funcionário
     const toggleEscopo = () => {
       const t = byId('tipoEscopo').value;
       byId('blocoLoja').classList.toggle('hidden', t !== 'loja');
       byId('blocoFunc').classList.toggle('hidden', t !== 'funcionario');
-      
-      // Se selecionou funcionário e já tem filial selecionada, carrega os funcionários
       if (t === 'funcionario' && byId('filial').value) {
         carregarFuncionarios();
       }
     };
-    
     byId('tipoEscopo').addEventListener('change', toggleEscopo);
 
-    // Carregar funcionários por filial/cargo - CORREÇÃO APLICADA
+    // Carregar funcionários por filial/cargo
     const carregarFuncionarios = () => {
       const filial = byId('filial').value;
       const cargo = byId('cargo').value;
       const sel = byId('funcionario');
-      
       sel.innerHTML = '';
-      
       if(!filial) { 
         sel.innerHTML = '<option value="" disabled selected>Escolha a filial primeiro</option>'; 
         return; 
       }
-      
       const lista = (FUNCIONARIOS[filial] && FUNCIONARIOS[filial][cargo]) || [];
-      
       if(lista.length === 0) { 
         sel.innerHTML = '<option value="" disabled selected>Nenhum funcionário encontrado</option>'; 
         return; 
       }
-      
       sel.innerHTML = '<option value="" disabled selected>Selecione…</option>' +
         lista.map(n => `<option value="${n}">${n}</option>`).join('');
     };
-
-    // CORREÇÃO: Event listeners para carregar funcionários
     byId('filial').addEventListener('change', function() {
       carregarFuncionarios();
       toggleEscopo();
     });
-    
     byId('cargo').addEventListener('change', carregarFuncionarios);
 
     // Estrelas
@@ -628,7 +618,6 @@
         el.src = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='${fill}' d='M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14l-5-4.87 6.91-1.01z'/></svg>`;
       });
     };
-    
     $$('.star').forEach(el => {
       el.addEventListener('click', function() { 
         const v = +el.dataset.v; 
@@ -637,7 +626,7 @@
       });
     });
 
-    // Limpar - AGORA USA A FUNÇÃO DE INICIALIZAÇÃO
+    // Limpar
     byId('btnLimpar').addEventListener('click', inicializarFormulario);
 
     // Validação
@@ -645,12 +634,10 @@
       const filial = byId('filial').value;
       const escopo = byId('tipoEscopo').value;
       if(!filial || !escopo) return 'Selecione a filial e o tipo (Loja/Funcionário).';
-
       if(!isAnon()){
         if(!byId('nome').value.trim()) return 'Informe o seu NOME (identificação obrigatória sem anonimato).';
         if(!byId('consent').checked)   return 'Marque o consentimento de uso dos dados.';
       }
-
       if(escopo === 'loja'){
         const msg = byId('mensagemLoja').value.trim();
         if(!msg) return 'Descreva seu relato sobre a loja.';
@@ -678,33 +665,34 @@
       });
     }
 
-    // Overlay controller - CORREÇÃO: Não reseta o formulário em caso de erro
+    /* <<< PATCH MÍNIMO: Overlay com auto-fechamento >>> */
+    let __ovTimer = null;
     const Overlay = {
       onSending(){
+        clearTimeout(__ovTimer);
         $('#overlay').classList.add('show');
         $('#ovSpin').classList.remove('hidden');
         $('#successIcon').classList.add('hidden');
+        $('#successIcon').textContent = '✅';
         $('#ovTitle').textContent = 'Enviando seu feedback…';
         $('#ovProto').classList.add('hidden');
         $('#successMessage').classList.add('hidden');
-        $('#ovBtn').classList.add('hidden');
+        $('#ovBtn').classList.add('hidden'); // botão segue oculto
       },
       onSuccess(proto){
+        clearTimeout(__ovTimer);
         $('#overlay').classList.add('show');
         $('#ovSpin').classList.add('hidden');
         $('#successIcon').classList.remove('hidden');
+        $('#successIcon').textContent = '✅';
         $('#ovTitle').textContent = '✅ Enviado com sucesso!';
-        const p = $('#ovProto');
-        p.textContent = proto;
-        p.classList.remove('hidden');
-        const m = $('#successMessage');
-        m.textContent = 'Usaremos seus dados apenas se for necessário retornar o contato.';
-        m.classList.remove('hidden');
-        const b = $('#ovBtn');
-        b.classList.remove('hidden');
-        b.focus();
+        const p = $('#ovProto'); p.textContent = proto; p.classList.remove('hidden');
+        const m = $('#successMessage'); m.textContent = 'Usaremos seus dados apenas se for necessário retornar o contato.'; m.classList.remove('hidden');
+        // Fecha automático e reseta o form
+        __ovTimer = setTimeout(() => { this.off(); inicializarFormulario(); }, 1200);
       },
       onError(errorMsg) {
+        clearTimeout(__ovTimer);
         $('#overlay').classList.add('show');
         $('#ovSpin').classList.add('hidden');
         $('#successIcon').classList.remove('hidden');
@@ -712,37 +700,35 @@
         $('#ovTitle').textContent = 'Atenção';
         $('#successMessage').textContent = errorMsg;
         $('#successMessage').classList.remove('hidden');
-        $('#ovBtn').classList.remove('hidden');
-        $('#ovBtn').textContent = 'Corrigir';
+        $('#ovBtn').classList.add('hidden'); // sem botão, fecha sozinho
+        // Fecha automático sem resetar (para usuário corrigir)
+        __ovTimer = setTimeout(() => { this.off(); }, 2500);
       },
       off(){ 
+        clearTimeout(__ovTimer);
         $('#overlay').classList.remove('show');
       },
       offAndReset() {
-        $('#overlay').classList.remove('show');
-        // Só reseta o formulário quando é sucesso, não quando é erro
+        // Mantido por compatibilidade, mas não é usado porque agora fechamos automático
+        this.off();
         setTimeout(inicializarFormulario, 300);
       }
     };
-    
-    // CORREÇÃO: Botão do overlay - comportamento diferente para erro vs sucesso
+
+    // Listener mantido (compatibilidade), mas o botão fica oculto
     $('#ovBtn').addEventListener('click', function() {
-      // Se é mensagem de sucesso, reseta o formulário
       if ($('#ovTitle').textContent === '✅ Enviado com sucesso!') {
         Overlay.offAndReset();
       } else {
-        // Se é mensagem de erro, apenas fecha o overlay mantendo os dados
         Overlay.off();
       }
     });
 
-    // Envio - CORREÇÃO: Não reseta em caso de erro
+    // Envio
     byId('formFeedback').addEventListener('submit', async (e) => {
       e.preventDefault();
       const err = validar();
-      
       if(err) { 
-        // CORREÇÃO: Mostra o erro sem resetar o formulário
         Overlay.onError(err);
         return; 
       }
@@ -778,17 +764,9 @@
       try {
         Overlay.onSending();
         await fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-        // sucesso
         Overlay.onSuccess(proto);
       } catch(e) {
-        $('#ovTitle').textContent = '❌ Não foi possível enviar agora. Tente novamente.';
-        $('#ovSpin').classList.add('hidden');
-        $('#successIcon').classList.remove('hidden');
-        $('#successIcon').textContent = '❌';
-        $('#successMessage').textContent = 'Erro de conexão. Por favor, tente novamente.';
-        $('#successMessage').classList.remove('hidden');
-        $('#ovBtn').classList.remove('hidden');
-        $('#ovBtn').textContent = 'Fechar';
+        Overlay.onError('Não foi possível enviar agora. Verifique sua conexão e tente novamente.');
         console.error(e);
       }
     });
