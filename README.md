@@ -512,11 +512,11 @@
   <script>
     // ====== Dados de referência (exibição amigável, values mantêm códigos) ======
     const FUNCIONARIOS = {
-      '293': { Funcionário: ['Tainara','Polyana','Isadora'], gerente: ['Lucinele'] },
-      '488': { Funcionário: ['Sara','Iolanda','Gabriela','Marcieli','Larissa'], gerente: ['Meire'] },
-      '287': { Funcionário: ['Vera','Karina','Fabiola','Raphael','Ingrid'], gerente: ['Bruno'] },
-      '761': { Funcionário: ['Maria','Marcia','Joana'], gerente: ['Dayane'] },
-      '288': { Funcionário: ['Evaneusa','Isadora','Paula','Aline','Barbara','Sueli','Daniela','Priscila'], gerente: ['Sônia'] }
+      '293': { Funcionario: ['Tainara','Polyana','Isadora'], gerente: ['Lucinele'] },
+      '488': { Funcionario: ['Sara','Iolanda','Gabriela','Marcieli','Larissa'], gerente: ['Meire'] },
+      '287': { Funcionario: ['Vera','Karina','Fabiola','Raphael','Ingrid'], gerente: ['Bruno'] },
+      '761': { Funcionario: ['Maria','Marcia','Joana'], gerente: ['Dayane'] },
+      '288': { Funcionario: ['Evaneusa','Isadora','Paula','Aline','Barbara','Sueli','Daniela','Priscila'], gerente: ['Sônia'] }
     };
 
     // ====== Utils ======
