@@ -444,7 +444,7 @@
             <div class="row">
               <label for="cargo">Cargo</label>
               <select id="cargo" name="cargo">
-                <option value="vendedor">Vendedor(a)</option>
+                <option value="Funcionário">Funcionário(a)</option>
                 <option value="gerente">Gerente</option>
               </select>
             </div>
@@ -512,11 +512,11 @@
   <script>
     // ====== Dados de referência (exibição amigável, values mantêm códigos) ======
     const FUNCIONARIOS = {
-      '293': { vendedor: ['Tainara','Polyana','Isadora'], gerente: ['Lucinele'] },
-      '488': { vendedor: ['Sara','Iolanda','Gabriela','Marcieli','Larissa'], gerente: ['Meire'] },
-      '287': { vendedor: ['Vera','Karina','Fabiola','Raphael','Ingrid'], gerente: ['Bruno'] },
-      '761': { vendedor: ['Maria','Marcia','Joana'], gerente: ['Dayane'] },
-      '288': { vendedor: ['Evaneusa','Isadora','Paula','Aline','Barbara','Sueli','Daniela','Priscila'], gerente: ['Sônia'] }
+      '293': { Funcionário: ['Tainara','Polyana','Isadora'], gerente: ['Lucinele'] },
+      '488': { Funcionário: ['Sara','Iolanda','Gabriela','Marcieli','Larissa'], gerente: ['Meire'] },
+      '287': { Funcionário: ['Vera','Karina','Fabiola','Raphael','Ingrid'], gerente: ['Bruno'] },
+      '761': { Funcionário: ['Maria','Marcia','Joana'], gerente: ['Dayane'] },
+      '288': { Funcionário: ['Evaneusa','Isadora','Paula','Aline','Barbara','Sueli','Daniela','Priscila'], gerente: ['Sônia'] }
     };
 
     // ====== Utils ======
