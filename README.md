@@ -49,7 +49,6 @@
     textarea{min-height:120px;resize:vertical}
     input:focus,select:focus,textarea:focus{box-shadow:var(--ring);border-color:#2f80ff;transform:translateY(-1px)}
 
-    /* Reserva de altura para alinhar colunas com/sem help */
     .help{font-size:12px;color:var(--muted);min-height:18px}
     .muted{color:var(--muted);font-size:13px}
 
@@ -84,13 +83,11 @@
     .notice:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.18)}
     .hidden{display:none!important}
 
-    /* Aviso forte (identificação) */
     .callout{padding:12px 14px;border-radius:12px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.55);color:#ffd28a;font-weight:700;animation:pulse 2s infinite}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.8}}
 
     footer{margin:28px 0 40px;color:var(--muted);font-size:12px;text-align:center}
 
-    /* Overlay (bloqueio durante envio e sucesso) */
     .overlay{position:fixed;inset:0;background:rgba(7,12,22,.72);backdrop-filter:blur(3px);display:none;place-items:center;z-index:80;animation:fadeIn 0.3s ease}
     @keyframes fadeIn{from{opacity:0} to{opacity:1}}
     .overlay.show{display:grid}
@@ -101,7 +98,6 @@
     .proto-big{margin-top:8px;font-family:ui-monospace,monospace;background:#0d1931;border:1px solid rgba(255,255,255,.16);padding:8px 10px;border-radius:10px;display:inline-block;animation:bounceIn 0.6s ease}
     @keyframes bounceIn{0%{transform:scale(0.3);opacity:0}50%{transform:scale(1.05)}70%{transform:scale(0.9)}100%{transform:scale(1);opacity:1}}
     
-    /* CORREÇÃO: Ajuste específico para o bloco de funcionário */
     .bloco-func-ajustado {
       display: grid;
       gap: 14px;
@@ -113,7 +109,6 @@
       align-content: start;
     }
     
-    /* Melhorias na tela de sucesso */
     .success-icon {
       font-size: 48px;
       margin-bottom: 12px;
@@ -125,91 +120,65 @@
       animation:fadeIn 0.5s ease 0.2s both;
     }
 
-    /* Animações para elementos que aparecem */
     .fade-in{animation:fadeIn 0.5s ease}
     .slide-in{animation:slideUp 0.4s ease}
 
-    /* ============================================================================
-       MODIFICAÇÕES ESPECÍFICAS PARA MOBILE (até 768px)
-       ============================================================================ */
     @media (max-width: 768px) {
-      /* Ajustes gerais de layout */
       .wrap {
         margin: 16px auto;
         padding: 0 12px;
       }
-
-      /* Header em coluna */
       header {
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
       }
-
       .brand {
         width: 100%;
       }
-
       .brand h1 {
         font-size: 22px;
       }
-
-      /* Hero section em coluna */
       .hero {
         grid-template-columns: 1fr;
         padding: 18px;
         margin: 16px 0;
       }
-
       .hero h2 {
         font-size: 18px;
       }
-
-      /* Badges com melhor espaçamento */
       .badges {
         gap: 6px;
       }
-
       .badge {
         padding: 5px 8px;
         font-size: 11px;
       }
-
-      /* Cards com menos padding */
       .card.panel {
         padding: 16px;
       }
-
-      /* Grids em coluna única */
       .grid.cols-2,
       .grid.cols-3 {
         grid-template-columns: 1fr !important;
         gap: 16px;
       }
-
-      /* Formulários mais compactos */
       .row {
         gap: 8px;
       }
-
       input[type="text"],
       input[type="email"],
       select,
       textarea {
         padding: 14px 12px;
         min-height: 52px;
-        font-size: 16px; /* Melhor para mobile */
+        font-size: 16px;
       }
-
       textarea {
         min-height: 140px;
       }
-
-      /* Chips em grid responsivo */
       .chips {
         gap: 6px;
       }
-
       .chip {
         padding: 8px 10px;
         font-size: 12px;
@@ -217,97 +186,72 @@
         min-width: calc(50% - 6px);
         justify-content: flex-start;
       }
-
-      /* Switch maior para toque */
       .switch {
         width: 60px;
         height: 32px;
       }
-
       .switch .knob {
         width: 26px;
         height: 26px;
       }
-
       .switch.on .knob {
         left: 31px;
       }
-
-      /* Botões em coluna e maiores */
       .grid.cols-2:last-child {
         grid-template-columns: 1fr;
         gap: 12px;
       }
-
       button {
         padding: 16px;
         font-size: 16px;
         width: 100%;
       }
-
-      /* Avisos e notificações */
       .callout {
         padding: 14px 12px;
         font-size: 14px;
         line-height: 1.4;
       }
-
       .notice {
         padding: 14px 12px;
         flex-direction: column;
         gap: 8px;
       }
-
-      /* Rating com estrelas maiores */
       .rating {
         gap: 4px;
         justify-content: center;
       }
-
       .star {
         width: 32px;
         height: 32px;
       }
-
-      /* Overlay mobile */
       .card-overlay {
         margin: 20px;
         padding: 20px;
       }
-
-      /* Ajuste específico para o bloco de funcionário mobile */
       .bloco-func-ajustado .grid.cols-3 {
         gap: 16px;
       }
-
-      /* Protocolo menor no header */
       #protocolBox {
         font-size: 11px;
         padding: 4px 6px;
       }
-
-      /* Help text mais legível */
       .help {
         font-size: 11px;
         line-height: 1.3;
       }
     }
 
-    /* Ajustes extras para telas muito pequenas */
     @media (max-width: 360px) {
       .wrap {
         padding: 0 8px;
       }
-
       .chip {
         flex: 1 1 100%;
         min-width: 100%;
       }
-
       .brand h1 {
         font-size: 20px;
       }
-
       .hero h2 {
         font-size: 16px;
       }
@@ -318,7 +262,6 @@
   </style>
 </head>
 <body>
-  <!-- O RESTANTE DO SEU HTML PERMANECE EXATAMENTE IGUAL --> 
   <div class="wrap">
     <header class="fade-in">
       <div class="brand">
@@ -429,7 +372,7 @@
         </div>
       </div>
 
-      <!-- Funcionário - CORREÇÃO APLICADA -->
+      <!-- Funcionário -->
       <div id="blocoFunc" class="panel card hidden">
         <div class="bloco-func-ajustado">
           <div class="grid cols-3">
@@ -444,7 +387,8 @@
             <div class="row">
               <label for="cargo">Cargo</label>
               <select id="cargo" name="cargo">
-                <option value="Funcionário">Funcionário(a)</option>
+                <!-- IMPORTANTE: value = "funcionarios" (sem acento) -->
+                <option value="funcionarios">Funcionário(a)</option>
                 <option value="gerente">Gerente</option>
               </select>
             </div>
@@ -508,25 +452,38 @@
     </div>
   </div>
 
-  <!-- O SCRIPT JAVASCRIPT PERMANECE EXATAMENTE IGUAL, COM PATCH MÍNIMO NO OVERLAY -->
   <script>
-    // ====== Dados de referência (exibição amigável, values mantêm códigos) ======
+    // ====== Dados de referência ======
+    // Aqui é o ÚNICO lugar onde você precisa mexer pra adicionar/retirar funcionários
     const FUNCIONARIOS = {
-      '293': { Funcionario: ['Tainara','Polyana','Isadora'], gerente: ['Lucinele'] },
-      '488': { Funcionario: ['Sara','Iolanda','Gabriela','Marcieli','Larissa'], gerente: ['Meire'] },
-      '287': { Funcionario: ['Vera','Karina','Fabiola','Raphael','Ingrid'], gerente: ['Bruno'] },
-      '761': { Funcionario: ['Maria','Marcia','Joana'], gerente: ['Dayane'] },
-      '288': { Funcionario: ['Evaneusa','Isadora','Paula','Aline','Barbara','Sueli','Daniela','Priscila'], gerente: ['Sônia'] }
+      '293': { 
+        funcionarios: ['Tainara','Polyana','Isadora'], 
+        gerente: ['Lucinele'] 
+      },
+      '488': { 
+        funcionarios: ['Sara','Iolanda','Gabriela','Marcieli','Larissa'], 
+        gerente: ['Meire'] 
+      },
+      '287': { 
+        funcionarios: ['Vera','Karina','Fabiola','Raphael','Ingrid'], 
+        gerente: ['Bruno'] 
+      },
+      '761': { 
+        funcionarios: ['Maria','Marcia','Joana'], 
+        gerente: ['Dayane'] 
+      },
+      '288': { 
+        funcionarios: ['Evaneusa','Isadora','Paula','Aline','Barbara','Sueli','Daniela','Priscila'], 
+        gerente: ['Sônia'] 
+      }
     };
 
-    // ====== Utils ======
     const $  = s => document.querySelector(s);
     const $$ = s => Array.from(document.querySelectorAll(s));
     const byId = id => document.getElementById(id);
     const protocol = () => 'HS-' + new Date().toISOString().replace(/[-:T.Z]/g,'').slice(0,14);
     const isAnon = () => byId('anonimo').value === 'sim';
 
-    // Estado inicial
     function inicializarFormulario() {
       byId('formFeedback').reset();
       setAnon(false); 
@@ -540,7 +497,6 @@
       byId('consent').checked = false;
     }
 
-    // Inicializar ao carregar a página
     document.addEventListener('DOMContentLoaded', function() {
       inicializarFormulario();
       byId('year').textContent = new Date().getFullYear();
@@ -589,7 +545,7 @@
     // Carregar funcionários por filial/cargo
     const carregarFuncionarios = () => {
       const filial = byId('filial').value;
-      const cargo = byId('cargo').value;
+      const cargo = byId('cargo').value;  // "funcionarios" ou "gerente"
       const sel = byId('funcionario');
       sel.innerHTML = '';
       if(!filial) { 
@@ -652,10 +608,8 @@
       return null;
     }
 
-    // Endpoint (modo no-cors)
     const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwUbsFzEiaBzI_q-WVWywEwWTBVl5eXfmVBN4McnnLNu-rTAnhc9BacOX2qCac8LlPReA/exec';
 
-    // Helper
     function toBase64(file){
       return new Promise((resolve,reject)=>{
         const r = new FileReader();
@@ -665,7 +619,6 @@
       });
     }
 
-    /* <<< PATCH MÍNIMO: Overlay com auto-fechamento >>> */
     let __ovTimer = null;
     const Overlay = {
       onSending(){
@@ -677,7 +630,7 @@
         $('#ovTitle').textContent = 'Enviando seu feedback…';
         $('#ovProto').classList.add('hidden');
         $('#successMessage').classList.add('hidden');
-        $('#ovBtn').classList.add('hidden'); // botão segue oculto
+        $('#ovBtn').classList.add('hidden');
       },
       onSuccess(proto){
         clearTimeout(__ovTimer);
@@ -688,7 +641,6 @@
         $('#ovTitle').textContent = '✅ Enviado com sucesso!';
         const p = $('#ovProto'); p.textContent = proto; p.classList.remove('hidden');
         const m = $('#successMessage'); m.textContent = 'Usaremos seus dados apenas se for necessário retornar o contato.'; m.classList.remove('hidden');
-        // Fecha automático e reseta o form
         __ovTimer = setTimeout(() => { this.off(); inicializarFormulario(); }, 1200);
       },
       onError(errorMsg) {
@@ -700,8 +652,7 @@
         $('#ovTitle').textContent = 'Atenção';
         $('#successMessage').textContent = errorMsg;
         $('#successMessage').classList.remove('hidden');
-        $('#ovBtn').classList.add('hidden'); // sem botão, fecha sozinho
-        // Fecha automático sem resetar (para usuário corrigir)
+        $('#ovBtn').classList.add('hidden');
         __ovTimer = setTimeout(() => { this.off(); }, 2500);
       },
       off(){ 
@@ -709,13 +660,11 @@
         $('#overlay').classList.remove('show');
       },
       offAndReset() {
-        // Mantido por compatibilidade, mas não é usado porque agora fechamos automático
         this.off();
         setTimeout(inicializarFormulario, 300);
       }
     };
 
-    // Listener mantido (compatibilidade), mas o botão fica oculto
     $('#ovBtn').addEventListener('click', function() {
       if ($('#ovTitle').textContent === '✅ Enviado com sucesso!') {
         Overlay.offAndReset();
