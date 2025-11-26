@@ -514,8 +514,8 @@
     const FUNCIONARIOS = {
       '293': { vendedor: ['Tainara','Polyana','Isadora'], gerente: ['Lucinele'] },
       '488': { vendedor: ['Sara','Iolanda','Gabriela','Marcieli','Larissa'], gerente: ['Meire'] },
-      '287': { vendedor: ['Vera','Karina','Fabiola','Raphael','Ingrid'] gerente: ['Bruno'] },
-      '761': { vendedor: ['Maria','Marcia','Joana'], gerente: ['Dayane'] },
+      '287': { vendedor: ['Vera','Karina','Fabiola','Raphael','Ingrid'], gerente: ['Bruno'] },
+      '761': { vendedor: ['Maria','Marcia','Joana'], gerente: ['Dayane'], },
       '288': { vendedor: ['Evaneusa','Isadora','Paula','Aline','Barbara','Sueli','Daniela','Priscila'], gerente: ['Sônia'] }
     };
 
